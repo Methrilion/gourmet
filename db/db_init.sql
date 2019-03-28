@@ -98,7 +98,7 @@ CREATE TABLE methods (
 );
 
 -- TODO: change datetime type
-CREATE TABLE purchases (
+CREATE TABLE receipts (
     id SERIAL PRIMARY KEY,
     employee_id INTEGER NOT NULL,
     location_id INTEGER NOT NULL,
@@ -109,14 +109,14 @@ CREATE TABLE purchases (
     FOREIGN KEY (method_id) REFERENCES methods(id)
 );
 
-CREATE TABLE purchases_keks (
+CREATE TABLE purchases (
     id SERIAL PRIMARY KEY,
-    purchase_id INTEGER NOT NULL,
+    receipt_id INTEGER NOT NULL,
     price_id INTEGER NOT NULL,
     amount FLOAT NOT NULL,
     price DECIMAL NOT NULL,
     result DECIMAL NOT NULL,
-    FOREIGN KEY (purchase_id) REFERENCES purchases(id)
+    FOREIGN KEY (receipt_id) REFERENCES receipts(id)
 );
 
 
