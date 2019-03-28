@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package model;
+
+message Currency {
+    uint32 id = 1;
+    string name = 2;
+    string code = 3;
+}
+
+message RateOfExchange {
+    uint32 id = 1;
+    uint32 from_id = 2;
+    uint32 to_id = 3;
+    float price = 4; // TODO: check if float to decimal conversion is correct
+}
+
+message Location {
+    uint32 id = 1;
+    string name = 2;
+    string description = 3;
+    uint32 currency_id = 4;
+    bool status = 5;
+}
+
+message Product {
+    uint32 id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message Price {
+    uint32 id = 1;
+    uint32 product_id = 2;
+    uint32 location_id = 3;
+    float price = 4;
+}
+
+message Position {
+    uint32 id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message Employee {
+    uint32 id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    uint32 position_id = 4;
+    uint32 location_id = 5;
+}
+
+message Method {
+    uint32 id = 1;
+    string name = 2;
+}
+
+// TODO: change datetime type
+message Receipt {
+    uint32 id = 1;
+    uint32 employee_id = 2;
+    uint32 location_id = 3;
+    uint32 method_id = 4;
+    string datetime = 5;
+}
+
+message Purchase {
+    uint32 id = 1;
+    uint32 receipt_id = 2;
+    uint32 price_id = 3;
+    float amount = 4;
+    float price = 5;
+    float result = 6;
+}

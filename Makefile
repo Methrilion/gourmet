@@ -21,7 +21,10 @@ re:
 		make build
 		make run
 
-# ifndef $(GOPATH)
-#     GOPATH=$(shell go env GOPATH)
-#     export GOPATH
-# endif
+ifndef $(GOPATH)
+    GOPATH=$(shell go env GOPATH)
+    export GOPATH
+endif
+
+protobuf:
+		protoc -I. -I$(GOPATH)/src --go_out=plugins=grpc:. proto/svc-storage-writer/svc-storage-writer.proto
