@@ -27,4 +27,5 @@ ifndef $(GOPATH)
 endif
 
 protobuf:
+		protoc -I. -I$(GOPATH)/src --go_out=plugins=grpc:. proto/model.proto
 		protoc -I. -I$(GOPATH)/src --go_out=plugins=grpc:. proto/svc-storage-writer/svc-storage-writer.proto
