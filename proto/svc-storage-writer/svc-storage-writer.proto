@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package storage.writer;
 
-import "proto/model.proto";
+import "github.com/methrilion/gourmet/proto/model.proto";
 
 service StorageWriterService {
     rpc ListCurrency (ListCurrencyRequest) returns (ListCurrencyResponse) {}
