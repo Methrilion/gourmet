@@ -1,8 +1,0 @@
-{
-    "protoc": {
-        "path": "/usr/local/bin/protoc",
-        "options": [
-            "--proto_path=/home/methrilion/go/src"
-        ]
-    }
-}
