@@ -3,44 +3,30 @@ package db
 import (
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/jinzhu/gorm"
 )
 
-var db *gorm.DB
-
-func init() {
-
-	db = connect()
-}
-
-func connect() *gorm.DB {
+func connect(dialect, host, port, user, dbname, password, sslmode string) *gorm.DB {
 	log.Println("Connecting to Db...")
 
 	connectionString :=
 		fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=%s",
-			os.Getenv("DB_HOST"),
-			os.Getenv("DB_PORT"),
-			os.Getenv("DB_USER"),
-			os.Getenv("DB_DBNAME"),
-			os.Getenv("DB_PASSWORD"),
-			os.Getenv("DB_SSL"))
+			host, port, user, dbname, password, sslmode)
 
-	db, err := gorm.Open(os.Getenv("DB_DIALECT"), connectionString)
+	db, err := gorm.Open(dialect, connectionString)
 	if err != nil {
-		log.Fatal("Fatal:", err)
+		log.Fatal("Fatal:", err) // TODO: Fatal or Panic? Fatal crashes the service
 	}
 
 	log.Println("Connection successful")
 	return db
 }
 
-//Get - Singleton realization
-func Get() *gorm.DB {
-	if db != nil {
-		return db
-	}
-	db := connect()
+//Get - kek realization
+func Get(dialect, host, port, user, dbname, password, sslmode string) *gorm.DB {
+
+	// TODO: Add Get() functionality. Now it just a plug
+	db := connect(dialect, host, port, user, dbname, password, sslmode)
 	return db
 }
