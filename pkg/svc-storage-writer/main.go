@@ -3,8 +3,6 @@ package main
 import (
 	"context"
 	"errors"
-	"fmt"
-	"log"
 	"os"
 
 	"github.com/jinzhu/gorm"
@@ -24,7 +22,7 @@ var storageWriter storageWriterService
 
 func main() {
 
-	keks := db.Get(os.Getenv("DB_DIALECT"),
+	database := db.Connect(os.Getenv("DB_DIALECT"),
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_USER"),
@@ -32,41 +30,26 @@ func main() {
 		os.Getenv("DB_PASSWORD"),
 		os.Getenv("DB_SSL"))
 
-	storageWriter = storageWriterService{gormDB: keks}
+	storageWriter = storageWriterService{gormDB: database}
 
-	// Test functionality
-	fmt.Println(storageWriter.ListCurrency(nil, &pb.ListCurrencyRequest{})) // Get all
-
-	tes := pbm.Currency{Name: "kekekeke", Code: "123"}
-	tesreq := &pb.CreateCurrencyRequest{Payload: &tes}
-	fmt.Println(storageWriter.CreateCurrency(nil, tesreq)) // Create new
-
-	fmt.Println("Hello, currency")
-	cs := []model.Currency{}
-	storageWriter.gormDB.Find(&cs) // Get all again
-	fmt.Println(cs)
-	// End test
+	AllTests()
 }
 
 func (s *storageWriterService) ListCurrency(ctx context.Context, in *pb.ListCurrencyRequest) (*pb.ListCurrencyResponse, error) {
-	if in == nil {
-		return &pb.ListCurrencyResponse{}, errors.New("Got nil request")
-	}
 
-	ms := []model.Currency{}
-	log.Println("Get currency list:")
-
-	if err := storageWriter.gormDB.Find(&ms).Error; err != nil {
+	result := []model.Currency{}
+	if err := storageWriter.gormDB.Find(&result).Error; err != nil {
 		return nil, err
 	}
 
-	out := &pb.ListCurrencyResponse{}
-	for _, r := range ms {
-		out.Currency = append(out.Currency, mapper.CurrencyToPB(&r))
-		fmt.Println(r)
+	var resultPB []*pbm.Currency
+	for _, r := range result {
+		resultPB = append(resultPB, mapper.CurrencyToPB(&r))
 	}
 
-	return out, nil
+	return &pb.ListCurrencyResponse{
+		Currency: resultPB,
+	}, nil
 }
 
 func (s *storageWriterService) CreateCurrency(ctx context.Context, in *pb.CreateCurrencyRequest) (*pbm.Currency, error) {
@@ -74,19 +57,31 @@ func (s *storageWriterService) CreateCurrency(ctx context.Context, in *pb.Create
 		return &pbm.Currency{}, errors.New("Got nil request")
 	}
 
-	kek := mapper.PBToCurrency(in.GetPayload())
+	payload := mapper.PBToCurrency(in.GetPayload())
 	m := model.Currency{}
 
-	if storageWriter.gormDB.NewRecord(kek) != true {
-		return nil, errors.New("Primary key is not blank before create")
-	}
-	if err := storageWriter.gormDB.Create(&kek).Scan(&m).Error; err != nil {
+	if err := storageWriter.gormDB.Create(&payload).Scan(&m).Error; err != nil {
 		return nil, err
-	}
-	storageWriter.gormDB.NewRecord(kek)
-	if storageWriter.gormDB.NewRecord(kek) != false {
-		return nil, errors.New("Primary key is blank after create")
 	}
 
 	return mapper.CurrencyToPB(&m), nil
 }
+
+// func (s *storageWriterService) ListRatesOfExchange(ctx context.Context, in *pb.ListRatesOfExchangeRequest) (*pb.ListRatesOfExchangeResponse, error)
+// func (s *storageWriterService) CreateRateOfExchange(ctx context.Context, in *pb.CreateRateOfExchangeRequest) (*pbm.RateOfExchange, error)
+// func (s *storageWriterService) ListLocations(ctx context.Context, in *pb.ListLocationsRequest) (*pb.ListLocationsResponse, error)
+// func (s *storageWriterService) CreateLocadb.Get()tion(ctx context.Context, in *pb.CreateLocationRequest) (*pbm.Location, error)
+// func (s *storageWriterService) ListProducts(ctx context.Context, in *pb.ListProductsRequest) (*pb.ListProductsResponse, error)
+// func (s *storageWriterService) CreateProduct(ctx context.Context, in *pb.CreateProductRequest) (*pbm.Product, error)
+// func (s *storageWriterService) ListPrices(ctx context.Context, in *pb.ListPricesRequest) (*pb.ListPricesResponse, error)
+// func (s *storageWriterService) CreatePrice(ctx context.Context, in *pb.CreatePriceRequest) (*pbm.Price, error)
+// func (s *storageWriterService) ListPositions(ctx context.Context, in *pb.ListPositionsRequest) (*pb.ListPositionsResponse, error)
+// func (s *storageWriterService) CreatePosition(ctx context.Context, in *pb.CreatePositionRequest) (*pbm.Position, error)
+// func (s *storageWriterService) ListEmployees(ctx context.Context, in *pb.ListEmployeesRequest) (*pb.ListEmployeesResponse, error)
+// func (s *storageWriterService) CreateEmployee(ctx context.Context, in *pb.CreateEmployeeRequest) (*pbm.Employee, error)
+// func (s *storageWriterService) ListMethods(ctx context.Context, in *pb.ListMethodsRequest) (*pb.ListMethodsResponse, error)
+// func (s *storageWriterService) CreateMethod(ctx context.Context, in *pb.CreateMethodRequest) (*pbm.Method, error)
+// func (s *storageWriterService) ListReceipts(ctx context.Context, in *pb.ListReceiptsRequest) (*pb.ListReceiptsResponse, error)
+// func (s *storageWriterService) CreateReceipt(ctx context.Context, in *pb.CreateReceiptRequest) (*pbm.Receipt, error)
+// func (s *storageWriterService) ListPurchases(ctx context.Context, in *pb.ListPurchasesRequest) (*pb.ListPurchasesResponse, error)
+// func (s *storageWriterService) CreatePurchase(ctx context.Context, in *pb.CreatePurchaseRequest) (*pbm.Purchase, error)
