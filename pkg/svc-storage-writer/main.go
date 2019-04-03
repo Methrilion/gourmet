@@ -2,14 +2,11 @@ package main
 
 import (
 	"context"
-	"errors"
 	"os"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/methrilion/gourmet/pkg/svc-storage-writer/db"
-	"github.com/methrilion/gourmet/pkg/svc-storage-writer/mapper"
-	"github.com/methrilion/gourmet/pkg/svc-storage-writer/model"
 	pbm "github.com/methrilion/gourmet/proto/model"
 	pb "github.com/methrilion/gourmet/proto/svc-storage-writer/writer"
 )
@@ -37,34 +34,16 @@ func main() {
 
 func (s *storageWriterService) ListCurrency(ctx context.Context, in *pb.ListCurrencyRequest) (*pb.ListCurrencyResponse, error) {
 
-	result := []model.Currency{}
-	if err := storageWriter.gormDB.Find(&result).Error; err != nil {
-		return nil, err
-	}
-
-	var resultPB []*pbm.Currency
-	for _, r := range result {
-		resultPB = append(resultPB, mapper.CurrencyToPB(&r))
-	}
+	result, err := pbm.DefaultListCurrency(ctx, storageWriter.gormDB)
 
 	return &pb.ListCurrencyResponse{
-		Currency: resultPB,
-	}, nil
+		Currency: result,
+	}, err
 }
 
 func (s *storageWriterService) CreateCurrency(ctx context.Context, in *pb.CreateCurrencyRequest) (*pbm.Currency, error) {
-	if in == nil {
-		return &pbm.Currency{}, errors.New("Got nil request")
-	}
 
-	payload := mapper.PBToCurrency(in.GetPayload())
-	m := model.Currency{}
-
-	if err := storageWriter.gormDB.Create(&payload).Scan(&m).Error; err != nil {
-		return nil, err
-	}
-
-	return mapper.CurrencyToPB(&m), nil
+	return pbm.DefaultCreateCurrency(ctx, in.GetPayload(), storageWriter.gormDB)
 }
 
 // func (s *storageWriterService) ListRatesOfExchange(ctx context.Context, in *pb.ListRatesOfExchangeRequest) (*pb.ListRatesOfExchangeResponse, error)

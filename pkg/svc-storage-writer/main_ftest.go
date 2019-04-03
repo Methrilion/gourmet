@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/methrilion/gourmet/pkg/svc-storage-writer/model"
 	pbm "github.com/methrilion/gourmet/proto/model"
@@ -10,19 +10,17 @@ import (
 
 func AllTests() {
 	fTestListCurrency()
-	fTestCreateCurrencyWithNilRequest()
 	fTestCreateCurrency() // Create new
 	fTestListCurrency2()  // Get all again
+	fTestListCurrency3()
 }
 
 func fTestListCurrency() {
-
-	fmt.Println(storageWriter.ListCurrency(nil, &pb.ListCurrencyRequest{}))
+	log.Println(storageWriter.ListCurrency(nil, &pb.ListCurrencyRequest{}))
 }
 
-func fTestCreateCurrencyWithNilRequest() {
-
-	fmt.Println(storageWriter.CreateCurrency(nil, nil))
+func fTestListCurrency3() {
+	log.Println(storageWriter.ListCurrency(nil, &pb.ListCurrencyRequest{}))
 }
 
 func fTestCreateCurrency() {
@@ -30,14 +28,14 @@ func fTestCreateCurrency() {
 	tes := pbm.Currency{Name: "testName", Code: "123"}
 	tesreq := &pb.CreateCurrencyRequest{Payload: &tes}
 
-	fmt.Println("fTestCreateCurrency() returns:")
-	fmt.Println(storageWriter.CreateCurrency(nil, tesreq))
+	log.Println("fTestCreateCurrency() returns:")
+	log.Println(storageWriter.CreateCurrency(nil, tesreq))
 }
 
 func fTestListCurrency2() {
 
-	fmt.Println("func fTestListCurrency2()")
+	log.Println("func fTestListCurrency2()")
 	cs := []model.Currency{}
 	storageWriter.gormDB.Find(&cs)
-	fmt.Println(cs)
+	log.Println(cs)
 }
