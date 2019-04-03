@@ -2,13 +2,23 @@ syntax = "proto3";
 
 package model;
 
+import "github.com/infobloxopen/protoc-gen-gorm/options/gorm.proto";
+
 message Currency {
+    option (gorm.opts) = {
+        ormable: true,
+        table: "currency"
+    };
     uint32 id = 1;
     string name = 2;
     string code = 3;
 }
 
 message RateOfExchange {
+    option (gorm.opts) = {
+        ormable: true,
+        table: "rates_of_exchange"
+    };
     uint32 id = 1;
     uint32 from_id = 2;
     uint32 to_id = 3;
@@ -16,6 +26,10 @@ message RateOfExchange {
 }
 
 message Location {
+    option (gorm.opts) = {
+        ormable: true,
+        table: "locations"
+    };
     uint32 id = 1;
     string name = 2;
     string description = 3;
@@ -24,12 +38,20 @@ message Location {
 }
 
 message Product {
+    option (gorm.opts) = {
+        ormable: true,
+        table: "products"
+    };
     uint32 id = 1;
     string name = 2;
     string description = 3;
 }
 
 message Price {
+    option (gorm.opts) = {
+        ormable: true,
+        table: "prices"
+    };
     uint32 id = 1;
     uint32 product_id = 2;
     uint32 location_id = 3;
@@ -37,12 +59,20 @@ message Price {
 }
 
 message Position {
+    option (gorm.opts) = {
+        ormable: true,
+        table: "positions"
+    };
     uint32 id = 1;
     string name = 2;
     string description = 3;
 }
 
 message Employee {
+    option (gorm.opts) = {
+        ormable: true,
+        table: "employees"
+    };
     uint32 id = 1;
     string first_name = 2;
     string last_name = 3;
@@ -51,12 +81,20 @@ message Employee {
 }
 
 message Method {
+    option (gorm.opts) = {
+        ormable: true,
+        table: "methods"
+    };
     uint32 id = 1;
     string name = 2;
 }
 
 // TODO: change datetime type
 message Receipt {
+    option (gorm.opts) = {
+        ormable: true,
+        table: "receipts"
+    };
     uint32 id = 1;
     uint32 employee_id = 2;
     uint32 location_id = 3;
@@ -65,6 +103,10 @@ message Receipt {
 }
 
 message Purchase {
+    option (gorm.opts) = {
+        ormable: true,
+        table: "purchases"
+    };
     uint32 id = 1;
     uint32 receipt_id = 2;
     uint32 price_id = 3;
