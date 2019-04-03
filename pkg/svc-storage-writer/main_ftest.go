@@ -4,7 +4,6 @@ import (
 	"log"
 	"time"
 
-	"github.com/methrilion/gourmet/pkg/svc-storage-writer/model"
 	pbm "github.com/methrilion/gourmet/proto/model"
 	pb "github.com/methrilion/gourmet/proto/svc-storage-writer/writer"
 )
@@ -62,7 +61,7 @@ func fTestCreateCurrency() {
 
 func fTestListCurrency2() {
 	log.Println("fTestListCurrency2():")
-	cs := []model.Currency{}
+	cs := []pbm.CurrencyORM{}
 	storageWriter.gormDB.Find(&cs)
 	log.Println(cs)
 }
