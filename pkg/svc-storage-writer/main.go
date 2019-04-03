@@ -46,21 +46,128 @@ func (s *storageWriterService) CreateCurrency(ctx context.Context, in *pb.Create
 	return pbm.DefaultCreateCurrency(ctx, in.GetPayload(), storageWriter.gormDB)
 }
 
-// func (s *storageWriterService) ListRatesOfExchange(ctx context.Context, in *pb.ListRatesOfExchangeRequest) (*pb.ListRatesOfExchangeResponse, error)
-// func (s *storageWriterService) CreateRateOfExchange(ctx context.Context, in *pb.CreateRateOfExchangeRequest) (*pbm.RateOfExchange, error)
-// func (s *storageWriterService) ListLocations(ctx context.Context, in *pb.ListLocationsRequest) (*pb.ListLocationsResponse, error)
-// func (s *storageWriterService) CreateLocadb.Get()tion(ctx context.Context, in *pb.CreateLocationRequest) (*pbm.Location, error)
-// func (s *storageWriterService) ListProducts(ctx context.Context, in *pb.ListProductsRequest) (*pb.ListProductsResponse, error)
-// func (s *storageWriterService) CreateProduct(ctx context.Context, in *pb.CreateProductRequest) (*pbm.Product, error)
-// func (s *storageWriterService) ListPrices(ctx context.Context, in *pb.ListPricesRequest) (*pb.ListPricesResponse, error)
-// func (s *storageWriterService) CreatePrice(ctx context.Context, in *pb.CreatePriceRequest) (*pbm.Price, error)
-// func (s *storageWriterService) ListPositions(ctx context.Context, in *pb.ListPositionsRequest) (*pb.ListPositionsResponse, error)
-// func (s *storageWriterService) CreatePosition(ctx context.Context, in *pb.CreatePositionRequest) (*pbm.Position, error)
-// func (s *storageWriterService) ListEmployees(ctx context.Context, in *pb.ListEmployeesRequest) (*pb.ListEmployeesResponse, error)
-// func (s *storageWriterService) CreateEmployee(ctx context.Context, in *pb.CreateEmployeeRequest) (*pbm.Employee, error)
-// func (s *storageWriterService) ListMethods(ctx context.Context, in *pb.ListMethodsRequest) (*pb.ListMethodsResponse, error)
-// func (s *storageWriterService) CreateMethod(ctx context.Context, in *pb.CreateMethodRequest) (*pbm.Method, error)
-// func (s *storageWriterService) ListReceipts(ctx context.Context, in *pb.ListReceiptsRequest) (*pb.ListReceiptsResponse, error)
-// func (s *storageWriterService) CreateReceipt(ctx context.Context, in *pb.CreateReceiptRequest) (*pbm.Receipt, error)
-// func (s *storageWriterService) ListPurchases(ctx context.Context, in *pb.ListPurchasesRequest) (*pb.ListPurchasesResponse, error)
-// func (s *storageWriterService) CreatePurchase(ctx context.Context, in *pb.CreatePurchaseRequest) (*pbm.Purchase, error)
+func (s *storageWriterService) ListRatesOfExchange(ctx context.Context, in *pb.ListRatesOfExchangeRequest) (*pb.ListRatesOfExchangeResponse, error) {
+
+	result, err := pbm.DefaultListRateOfExchange(ctx, storageWriter.gormDB)
+
+	return &pb.ListRatesOfExchangeResponse{
+		RatesOfExchange: result,
+	}, err
+}
+
+func (s *storageWriterService) CreateRateOfExchange(ctx context.Context, in *pb.CreateRateOfExchangeRequest) (*pbm.RateOfExchange, error) {
+
+	return pbm.DefaultCreateRateOfExchange(ctx, in.GetPayload(), storageWriter.gormDB)
+}
+
+func (s *storageWriterService) ListLocations(ctx context.Context, in *pb.ListLocationsRequest) (*pb.ListLocationsResponse, error) {
+
+	result, err := pbm.DefaultListLocation(ctx, storageWriter.gormDB)
+
+	return &pb.ListLocationsResponse{
+		Locations: result,
+	}, err
+}
+
+func (s *storageWriterService) CreateLocation(ctx context.Context, in *pb.CreateLocationRequest) (*pbm.Location, error) {
+
+	return pbm.DefaultCreateLocation(ctx, in.GetPayload(), storageWriter.gormDB)
+}
+
+func (s *storageWriterService) ListProducts(ctx context.Context, in *pb.ListProductsRequest) (*pb.ListProductsResponse, error) {
+
+	result, err := pbm.DefaultListProduct(ctx, storageWriter.gormDB)
+
+	return &pb.ListProductsResponse{
+		Products: result,
+	}, err
+}
+
+func (s *storageWriterService) CreateProduct(ctx context.Context, in *pb.CreateProductRequest) (*pbm.Product, error) {
+
+	return pbm.DefaultCreateProduct(ctx, in.GetPayload(), storageWriter.gormDB)
+}
+
+func (s *storageWriterService) ListPrices(ctx context.Context, in *pb.ListPricesRequest) (*pb.ListPricesResponse, error) {
+
+	result, err := pbm.DefaultListPrice(ctx, storageWriter.gormDB)
+
+	return &pb.ListPricesResponse{
+		Prices: result,
+	}, err
+}
+
+func (s *storageWriterService) CreatePrice(ctx context.Context, in *pb.CreatePriceRequest) (*pbm.Price, error) {
+
+	return pbm.DefaultCreatePrice(ctx, in.GetPayload(), storageWriter.gormDB)
+}
+
+func (s *storageWriterService) ListPositions(ctx context.Context, in *pb.ListPositionsRequest) (*pb.ListPositionsResponse, error) {
+
+	result, err := pbm.DefaultListPosition(ctx, storageWriter.gormDB)
+
+	return &pb.ListPositionsResponse{
+		Positions: result,
+	}, err
+}
+
+func (s *storageWriterService) CreatePosition(ctx context.Context, in *pb.CreatePositionRequest) (*pbm.Position, error) {
+
+	return pbm.DefaultCreatePosition(ctx, in.GetPayload(), storageWriter.gormDB)
+}
+
+func (s *storageWriterService) ListEmployees(ctx context.Context, in *pb.ListEmployeesRequest) (*pb.ListEmployeesResponse, error) {
+
+	result, err := pbm.DefaultListEmployee(ctx, storageWriter.gormDB)
+
+	return &pb.ListEmployeesResponse{
+		Employees: result,
+	}, err
+}
+
+func (s *storageWriterService) CreateEmployee(ctx context.Context, in *pb.CreateEmployeeRequest) (*pbm.Employee, error) {
+
+	return pbm.DefaultCreateEmployee(ctx, in.GetPayload(), storageWriter.gormDB)
+}
+
+func (s *storageWriterService) ListMethods(ctx context.Context, in *pb.ListMethodsRequest) (*pb.ListMethodsResponse, error) {
+
+	result, err := pbm.DefaultListMethod(ctx, storageWriter.gormDB)
+
+	return &pb.ListMethodsResponse{
+		Methods: result,
+	}, err
+}
+
+func (s *storageWriterService) CreateMethod(ctx context.Context, in *pb.CreateMethodRequest) (*pbm.Method, error) {
+
+	return pbm.DefaultCreateMethod(ctx, in.GetPayload(), storageWriter.gormDB)
+}
+
+func (s *storageWriterService) ListReceipts(ctx context.Context, in *pb.ListReceiptsRequest) (*pb.ListReceiptsResponse, error) {
+
+	result, err := pbm.DefaultListReceipt(ctx, storageWriter.gormDB)
+
+	return &pb.ListReceiptsResponse{
+		Receipts: result,
+	}, err
+}
+
+func (s *storageWriterService) CreateReceipt(ctx context.Context, in *pb.CreateReceiptRequest) (*pbm.Receipt, error) {
+
+	return pbm.DefaultCreateReceipt(ctx, in.GetPayload(), storageWriter.gormDB)
+}
+
+func (s *storageWriterService) ListPurchases(ctx context.Context, in *pb.ListPurchasesRequest) (*pb.ListPurchasesResponse, error) {
+
+	result, err := pbm.DefaultListPurchase(ctx, storageWriter.gormDB)
+
+	return &pb.ListPurchasesResponse{
+		Purchases: result,
+	}, err
+}
+
+func (s *storageWriterService) CreatePurchase(ctx context.Context, in *pb.CreatePurchaseRequest) (*pbm.Purchase, error) {
+
+	return pbm.DefaultCreatePurchase(ctx, in.GetPayload(), storageWriter.gormDB)
+}
