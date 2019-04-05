@@ -2,13 +2,17 @@ package main
 
 import (
 	"context"
+	"log"
+	"net"
 	"os"
+	"time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/methrilion/gourmet/pkg/svc-storage-writer/db"
 	pbm "github.com/methrilion/gourmet/proto/model"
-	pb "github.com/methrilion/gourmet/proto/svc-storage-writer/writer"
+	pb "github.com/methrilion/gourmet/proto/writer"
+	"google.golang.org/grpc"
 )
 
 type storageWriterService struct {
@@ -18,6 +22,7 @@ type storageWriterService struct {
 var storageWriter storageWriterService
 
 func main() {
+	time.Sleep(2 * time.Second) // TODO: Delete this part
 
 	database := db.Connect(os.Getenv("DB_DIALECT"),
 		os.Getenv("DB_HOST"),
@@ -29,7 +34,20 @@ func main() {
 
 	storageWriter = storageWriterService{gormDB: database}
 
-	AllTests()
+	lis, err := net.Listen("tcp", os.Getenv("STORAGE_WRITER_SERVICE_ADDRESS"))
+	if err != nil {
+		log.Fatalf("Failed to listen: %v", err)
+	}
+	defer lis.Close()
+
+	s := grpc.NewServer()
+	pb.RegisterStorageWriterServiceServer(s, &storageWriter)
+
+	log.Println("Now listening on", os.Getenv("STORAGE_WRITER_SERVICE_ADDRESS"))
+
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("Failed to serve: %v\n", err)
+	}
 }
 
 func (s *storageWriterService) ListCurrency(ctx context.Context, in *pb.ListCurrencyRequest) (*pb.ListCurrencyResponse, error) {
