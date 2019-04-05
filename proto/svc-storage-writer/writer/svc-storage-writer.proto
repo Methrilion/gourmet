@@ -1,0 +1,146 @@
+syntax = "proto3";
+
+package writer;
+
+import "github.com/methrilion/gourmet/proto/model/model.proto";
+
+service StorageWriterService {
+    rpc ListCurrency (ListCurrencyRequest) returns (ListCurrencyResponse) {}
+    rpc CreateCurrency (CreateCurrencyRequest) returns (model.Currency) {}
+
+    rpc ListRatesOfExchange (ListRatesOfExchangeRequest) returns (ListRatesOfExchangeResponse) {}
+    rpc CreateRateOfExchange (CreateRateOfExchangeRequest) returns (model.RateOfExchange) {}
+
+    rpc ListLocations (ListLocationsRequest) returns (ListLocationsResponse) {}
+    rpc CreateLocation (CreateLocationRequest) returns (model.Location) {}
+
+    rpc ListProducts (ListProductsRequest) returns (ListProductsResponse) {}
+    rpc CreateProduct (CreateProductRequest) returns (model.Product) {}
+
+    rpc ListPrices (ListPricesRequest) returns (ListPricesResponse) {}
+    rpc CreatePrice (CreatePriceRequest) returns (model.Price) {}
+
+    rpc ListPositions (ListPositionsRequest) returns (ListPositionsResponse) {}
+    rpc CreatePosition (CreatePositionRequest) returns (model.Position) {}
+
+    rpc ListEmployees (ListEmployeesRequest) returns (ListEmployeesResponse) {}
+    rpc CreateEmployee (CreateEmployeeRequest) returns (model.Employee) {}
+
+    rpc ListMethods (ListMethodsRequest) returns (ListMethodsResponse) {}
+    rpc CreateMethod (CreateMethodRequest) returns (model.Method) {}
+
+    rpc ListReceipts (ListReceiptsRequest) returns (ListReceiptsResponse) {}
+    rpc CreateReceipt (CreateReceiptRequest) returns (model.Receipt) {}
+
+    rpc ListPurchases (ListPurchasesRequest) returns (ListPurchasesResponse) {}
+    rpc CreatePurchase (CreatePurchaseRequest) returns (model.Purchase) {}
+}
+
+message ListCurrencyRequest {}
+
+message ListCurrencyResponse {
+    repeated model.Currency currency = 1;
+}
+
+message CreateCurrencyRequest {
+    model.Currency payload = 1;
+}
+
+
+message ListRatesOfExchangeRequest {}
+
+message ListRatesOfExchangeResponse {
+    repeated model.RateOfExchange rates_of_exchange = 1;
+}
+
+message CreateRateOfExchangeRequest {
+    model.RateOfExchange payload = 1;
+}
+
+
+message ListLocationsRequest {}
+
+message ListLocationsResponse {
+    repeated model.Location locations = 1;
+}
+
+message CreateLocationRequest {
+    model.Location payload = 1;
+}
+
+
+message ListProductsRequest {}
+
+message ListProductsResponse {
+    repeated model.Product products = 1;
+}
+
+message CreateProductRequest {
+    model.Product payload = 1;
+}
+
+
+message ListPricesRequest {}
+
+message ListPricesResponse {
+    repeated model.Price prices = 1;
+}
+
+message CreatePriceRequest {
+    model.Price payload = 1;
+}
+
+
+message ListPositionsRequest {}
+
+message ListPositionsResponse {
+    repeated model.Position positions = 1;
+}
+
+message CreatePositionRequest {
+    model.Position payload = 1;
+}
+
+
+message ListEmployeesRequest {}
+
+message ListEmployeesResponse {
+    repeated model.Employee employees = 1;
+}
+
+message CreateEmployeeRequest {
+    model.Employee payload = 1;
+}
+
+
+message ListMethodsRequest {}
+
+message ListMethodsResponse {
+    repeated model.Method methods = 1;
+}
+
+message CreateMethodRequest {
+    model.Method payload = 1;
+}
+
+
+message ListReceiptsRequest{}
+
+message ListReceiptsResponse {
+    repeated model.Receipt receipts = 1;
+}
+
+message CreateReceiptRequest {
+    model.Receipt payload = 1;
+}
+
+
+message ListPurchasesRequest {}
+
+message ListPurchasesResponse {
+    repeated model.Purchase purchases = 1;
+}
+
+message CreatePurchaseRequest {
+    model.Purchase payload = 1;
+}

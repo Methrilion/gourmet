@@ -1,5 +1,8 @@
 build:
+		GOOS=linux GOARCH=amd64 go build -o ./pkg/svc-storage-writer/svc-storage-writer -i ./pkg/svc-storage-writer/*.go
+		docker build -t svc-storage-writer ./pkg/svc-storage-writer
 		docker build -t gourmet-db ./db
+		rm ./pkg/svc-storage-writer/svc-storage-writer
 
 unfail:
 		go get -u github.com/methrilion/gourmet
@@ -11,14 +14,18 @@ down:
 		docker-compose down
 
 clean:
-		docker rm gourmet-db
+		docker rm svc-storage-writer gourmet-db
 
 re:
 		make down
 		make build
 		make run
 
-# ifndef $(GOPATH)
-#     GOPATH=$(shell go env GOPATH)
-#     export GOPATH
-# endif
+ifndef $(GOPATH)
+    GOPATH=$(shell go env GOPATH)
+    export GOPATH
+endif
+
+protobuf:
+		protoc -I. -I$(GOPATH)/src --go_out=plugins=grpc:. proto/model/model.proto --gorm_out="engine=postgres:."
+		protoc -I. -I$(GOPATH)/src --go_out=plugins=grpc:. proto/svc-storage-writer/writer/svc-storage-writer.proto
