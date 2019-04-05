@@ -22,7 +22,7 @@ type storageWriterService struct {
 var storageWriter storageWriterService
 
 func main() {
-	time.Sleep(2 * time.Second)
+	time.Sleep(2 * time.Second) // TODO: Delete this part
 
 	database := db.Connect(os.Getenv("DB_DIALECT"),
 		os.Getenv("DB_HOST"),

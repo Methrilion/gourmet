@@ -39,7 +39,7 @@ func run() error {
 }
 
 func main() {
-	time.Sleep(5 * time.Second)
+	time.Sleep(5 * time.Second) // TODO: Delete this part
 
 	flag.Parse()
 	defer glog.Flush()
