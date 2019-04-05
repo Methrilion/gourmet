@@ -2,15 +2,12 @@ package main
 
 import (
 	"log"
-	"time"
 
 	pbm "github.com/methrilion/gourmet/proto/model"
-	pb "github.com/methrilion/gourmet/proto/svc-storage-writer/writer"
+	pb "github.com/methrilion/gourmet/proto/writer"
 )
 
 func AllTests() {
-	time.Sleep(1 * time.Second)
-
 	fTestListCurrency()
 	fTestCreateCurrencyWithNilRequest()
 	fTestCreateCurrency() // Create new
