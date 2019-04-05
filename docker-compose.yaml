@@ -40,3 +40,16 @@ services:
       gourmet-db:
         condition: service_healthy
     container_name: svc-integrator
+
+  svc-storage-reader:
+    image: svc-storage-reader:latest
+    environment:
+    - STORAGE_READER_SERVICE_ADDRESS=:9093
+    env_file:
+    - ./config/docker/gourmet-db.env
+    ports:
+    - 9093:9093
+    depends_on:
+      gourmet-db:
+        condition: service_healthy
+    container_name: svc-storage-reader
