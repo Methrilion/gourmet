@@ -1,4 +1,4 @@
-package db
+package connect
 
 import (
 	"fmt"
@@ -7,7 +7,8 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func Connect(dialect, host, port, user, dbname, password, sslmode string) *gorm.DB {
+// GormDBConnect returns gorm.DB pointer
+func GormDBConnect(dialect, host, port, user, dbname, password, sslmode string) *gorm.DB {
 	log.Println("Connecting to Db...")
 
 	connectionString :=

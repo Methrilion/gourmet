@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
 
 	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
@@ -39,7 +38,6 @@ func run() error {
 }
 
 func main() {
-	time.Sleep(5 * time.Second) // TODO: Delete this part
 
 	flag.Parse()
 	defer glog.Flush()
