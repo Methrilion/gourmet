@@ -36,7 +36,6 @@ CREATE TABLE db_conversion_lock (c INTEGER);
 
 
 
--- TODO : Products table, Locations table, remake DB to add that
 CREATE TABLE currency (
     id SERIAL PRIMARY KEY,
     name VARCHAR(256) NOT NULL,
@@ -97,13 +96,12 @@ CREATE TABLE methods (
     name VARCHAR(256) NOT NULL
 );
 
--- TODO: change datetime type
 CREATE TABLE receipts (
     id SERIAL PRIMARY KEY,
     employee_id INTEGER NOT NULL,
     location_id INTEGER NOT NULL,
     method_id INTEGER NOT NULL,
-    datetime VARCHAR(256) NOT NULL,
+    datetime TIMESTAMP NOT NULL,
     FOREIGN KEY (employee_id) REFERENCES employees(id),
     FOREIGN KEY (location_id) REFERENCES locations(id),
     FOREIGN KEY (method_id) REFERENCES methods(id)
@@ -129,9 +127,38 @@ INSERT INTO currency(name, code) VALUES
     ('Российский рубль', 'RUR'),
     ('Доллар США', 'USD');
 
+INSERT INTO positions(name, description) VALUES
+    ('Продавец', 'Хорошая позиция'),
+    ('Менеджер', 'Менеджер...'),
+    ('Директор', 'Главный');
+
+INSERT INTO locations(name, description, currency_id, status) VALUES
+    ('Точка1', 'Точка продажи номер 1', 1, true),
+    ('Точка2', 'Точка продажи номер 2', 1, true),
+    ('Точка3', 'EVIL POINT', 2, true);
+
+INSERT INTO employees(first_name, last_name, position_id, location_id) VALUES
+    ('Витько', 'сын Олегов', 1, 1),
+    ('Мария', 'Печеньки', 1, 2),
+    ('Микитко', 'сын Иванов', 3, 1);
+
+INSERT INTO methods(name) VALUES
+    ('Налом'),
+    ('Карточкой'),
+    ('Мобилой');
+
+INSERT INTO receipts(employee_id, location_id, method_id, datetime) VALUES
+    (1, 1, 1, '2016-06-22 19:10:25-07'),
+    (2, 1, 1, '2016-06-22 19:12:25-07'),
+    (1, 1, 1, '2016-06-24 11:11:25-07');
+
 
 -- remove lock that prevents concurrent db conversion; must be the last thing we do here
 DROP TABLE db_conversion_lock;
 
 SELECT * FROM products;
 SELECT * FROM currency;
+SELECT * FROM positions;
+SELECT * FROM locations;
+SELECT * FROM employees;
+SELECT * FROM receipts;

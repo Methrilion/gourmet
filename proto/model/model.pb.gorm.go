@@ -22,14 +22,17 @@ It has these top-level messages:
 package model
 
 import context "context"
+import time "time"
 
 import errors1 "github.com/infobloxopen/protoc-gen-gorm/errors"
 import field_mask1 "google.golang.org/genproto/protobuf/field_mask"
 import gorm1 "github.com/jinzhu/gorm"
 import gorm2 "github.com/infobloxopen/atlas-app-toolkit/gorm"
+import ptypes1 "github.com/golang/protobuf/ptypes"
 
 import fmt "fmt"
 import math "math"
+import _ "github.com/golang/protobuf/ptypes/timestamp"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = fmt.Errorf
@@ -627,7 +630,7 @@ type MethodWithAfterToPB interface {
 }
 
 type ReceiptORM struct {
-	Datetime   string
+	Datetime   time.Time
 	EmployeeId uint32
 	Id         uint32
 	LocationId uint32
@@ -653,7 +656,13 @@ func (m *Receipt) ToORM(ctx context.Context) (ReceiptORM, error) {
 	to.EmployeeId = m.EmployeeId
 	to.LocationId = m.LocationId
 	to.MethodId = m.MethodId
-	to.Datetime = m.Datetime
+	if m.Datetime != nil {
+		var t time.Time
+		if t, err = ptypes1.Timestamp(m.Datetime); err != nil {
+			return to, err
+		}
+		to.Datetime = t
+	}
 	if posthook, ok := interface{}(m).(ReceiptWithAfterToORM); ok {
 		err = posthook.AfterToORM(ctx, &to)
 	}
@@ -674,7 +683,9 @@ func (m *ReceiptORM) ToPB(ctx context.Context) (Receipt, error) {
 	to.EmployeeId = m.EmployeeId
 	to.LocationId = m.LocationId
 	to.MethodId = m.MethodId
-	to.Datetime = m.Datetime
+	if to.Datetime, err = ptypes1.TimestampProto(m.Datetime); err != nil {
+		return to, err
+	}
 	if posthook, ok := interface{}(m).(ReceiptWithAfterToPB); ok {
 		err = posthook.AfterToPB(ctx, &to)
 	}

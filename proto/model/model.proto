@@ -3,6 +3,7 @@ syntax = "proto3";
 package model;
 
 import "github.com/infobloxopen/protoc-gen-gorm/options/gorm.proto";
+import "google/protobuf/timestamp.proto";
 
 message Currency {
     option (gorm.opts) = {
@@ -89,7 +90,6 @@ message Method {
     string name = 2;
 }
 
-// TODO: change datetime type
 message Receipt {
     option (gorm.opts) = {
         ormable: true,
@@ -99,7 +99,7 @@ message Receipt {
     uint32 employee_id = 2;
     uint32 location_id = 3;
     uint32 method_id = 4;
-    string datetime = 5;
+    google.protobuf.Timestamp datetime = 5;
 }
 
 message Purchase {
