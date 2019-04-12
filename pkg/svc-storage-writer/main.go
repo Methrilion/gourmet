@@ -5,11 +5,10 @@ import (
 	"log"
 	"net"
 	"os"
-	"time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"github.com/methrilion/gourmet/pkg/svc-storage-writer/db"
+	"github.com/methrilion/gourmet/pkg/util/connect"
 	pbm "github.com/methrilion/gourmet/proto/model"
 	pb "github.com/methrilion/gourmet/proto/writer"
 	"google.golang.org/grpc"
@@ -22,9 +21,8 @@ type storageWriterService struct {
 var storageWriter storageWriterService
 
 func main() {
-	time.Sleep(2 * time.Second) // TODO: Delete this part
 
-	database := db.Connect(os.Getenv("DB_DIALECT"),
+	database := connect.GormDBConnect(os.Getenv("DB_DIALECT"),
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_USER"),

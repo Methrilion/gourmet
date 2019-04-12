@@ -1,0 +1,227 @@
+syntax = "proto3";
+
+package reader;
+
+import "github.com/methrilion/gourmet/proto/model/model.proto";
+import "google/api/annotations.proto";
+
+service StorageReaderService {
+    rpc ListCurrency (ListCurrencyRequest) returns (ListCurrencyResponse) {
+        option (google.api.http) = {
+            get: "/currency"
+        };
+    }
+    rpc GetCurrency (GetCurrencyRequest) returns (model.Currency) {
+        option (google.api.http) = {
+            get: "/currency/{id}"
+        };
+    }
+
+    rpc ListRatesOfExchange (ListRatesOfExchangeRequest) returns (ListRatesOfExchangeResponse) {
+        option (google.api.http) = {
+            get: "/rates_of_exchange"
+        };
+    }
+    rpc GetRateOfExchange (GetRateOfExchangeRequest) returns (model.RateOfExchange) {
+        option (google.api.http) = {
+            get: "/rates_of_exchange/{id}"
+        };
+    }
+
+    rpc ListLocations (ListLocationsRequest) returns (ListLocationsResponse) {
+        option (google.api.http) = {
+            get: "/locations"
+        };
+    }
+    rpc GetLocation (GetLocationRequest) returns (model.Location) {
+        option (google.api.http) = {
+            get: "/locations/{id}"
+        };
+    }
+
+    rpc ListProducts (ListProductsRequest) returns (ListProductsResponse) {
+        option (google.api.http) = {
+            get: "/products"
+        };
+    }
+    rpc GetProduct (GetProductRequest) returns (model.Product) {
+        option (google.api.http) = {
+            get: "/products/{id}"
+        };
+    }
+
+    rpc ListPrices (ListPricesRequest) returns (ListPricesResponse) {
+        option (google.api.http) = {
+            get: "/prices"
+        };
+    }
+    rpc GetPrice (GetPriceRequest) returns (model.Price) {
+        option (google.api.http) = {
+            get: "/prices/{id}"
+        };
+    }
+
+    rpc ListPositions (ListPositionsRequest) returns (ListPositionsResponse) {
+        option (google.api.http) = {
+            get: "/positions"
+        };
+    }
+    rpc GetPosition (GetPositionRequest) returns (model.Position) {
+        option (google.api.http) = {
+            get: "/positions/{id}"
+        };
+    }
+
+    rpc ListEmployees (ListEmployeesRequest) returns (ListEmployeesResponse) {
+        option (google.api.http) = {
+            get: "/employees"
+        };
+    }
+    rpc GetEmployee (GetEmployeeRequest) returns (model.Employee) {
+        option (google.api.http) = {
+            get: "/employees/{id}"
+        };
+    }
+
+    rpc ListMethods (ListMethodsRequest) returns (ListMethodsResponse) {
+        option (google.api.http) = {
+            get: "/methods"
+        };
+    }
+    rpc GetMethod (GetMethodRequest) returns (model.Method) {
+        option (google.api.http) = {
+            get: "/methods/{id}"
+        };
+    }
+
+    rpc ListReceipts (ListReceiptsRequest) returns (ListReceiptsResponse) {
+        option (google.api.http) = {
+            get: "/receipts"
+        };
+    }
+    rpc GetReceipt (GetReceiptRequest) returns (model.Receipt) {
+        option (google.api.http) = {
+            get: "/receipts/{id}"
+        };
+    }
+
+    rpc ListPurchases (ListPurchasesRequest) returns (ListPurchasesResponse) {
+        option (google.api.http) = {
+            get: "/purchases"
+        };
+    }
+    rpc GetPurchase (GetPurchaseRequest) returns (model.Purchase) {
+        option (google.api.http) = {
+            get: "/purchases/{id}"
+        };
+    }
+}
+
+message ListCurrencyRequest {}
+
+message ListCurrencyResponse {
+    repeated model.Currency currency = 1;
+}
+
+message GetCurrencyRequest {
+    uint32 id = 1;
+}
+
+
+message ListRatesOfExchangeRequest {}
+
+message ListRatesOfExchangeResponse {
+    repeated model.RateOfExchange rates_of_exchange = 1;
+}
+
+message GetRateOfExchangeRequest {
+    uint32 id = 1;
+}
+
+
+message ListLocationsRequest {}
+
+message ListLocationsResponse {
+    repeated model.Location locations = 1;
+}
+
+message GetLocationRequest {
+    uint32 id = 1;
+}
+
+
+message ListProductsRequest {}
+
+message ListProductsResponse {
+    repeated model.Product products = 1;
+}
+
+message GetProductRequest {
+    uint32 id = 1;
+}
+
+
+message ListPricesRequest {}
+
+message ListPricesResponse {
+    repeated model.Price prices = 1;
+}
+
+message GetPriceRequest {
+    uint32 id = 1;
+}
+
+
+message ListPositionsRequest {}
+
+message ListPositionsResponse {
+    repeated model.Position positions = 1;
+}
+
+message GetPositionRequest {
+    uint32 id = 1;
+}
+
+
+message ListEmployeesRequest {}
+
+message ListEmployeesResponse {
+    repeated model.Employee employees = 1;
+}
+
+message GetEmployeeRequest {
+    uint32 id = 1;
+}
+
+
+message ListMethodsRequest {}
+
+message ListMethodsResponse {
+    repeated model.Method methods = 1;
+}
+
+message GetMethodRequest {
+    uint32 id = 1;
+}
+
+
+message ListReceiptsRequest{}
+
+message ListReceiptsResponse {
+    repeated model.Receipt receipts = 1;
+}
+
+message GetReceiptRequest {
+    uint32 id = 1;
+}
+
+
+message ListPurchasesRequest {}
+
+message ListPurchasesResponse {
+    repeated model.Purchase purchases = 1;
+}
+
+message GetPurchaseRequest {
+    uint32 id = 1;
+}
