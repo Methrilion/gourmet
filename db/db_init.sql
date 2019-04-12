@@ -119,8 +119,12 @@ CREATE TABLE purchases (
 
 
 INSERT INTO products(name, description) VALUES
-    ('Имя продукта1', 'Описание продукта1'),
-    ('Имя продукта1', 'Описание продукта2');
+    ('Яблоки', 'Без ГМО'),
+    ('Апельсины', 'Оранжевые'),
+    ('Бананы', 'Кушать аккуратно!'),
+    ('Молоко Советское', 'То самое молоко'),
+    ('Хлеб Заводский', 'Самый вкусный'),
+    ('Тетрадь', 'Просто тетрадь');
 
 INSERT INTO currency(name, code) VALUES
     ('Белорусский рубль', 'BYN'),
@@ -137,6 +141,17 @@ INSERT INTO locations(name, description, currency_id, status) VALUES
     ('Точка2', 'Точка продажи номер 2', 1, true),
     ('Точка3', 'EVIL POINT', 2, true);
 
+INSERT INTO prices(product_id, location_id, price) VALUES
+    (1, 1, 200),
+    (2, 1, 250),
+    (3, 1, 500),
+    (4, 1, 100),
+    (5, 1, 100),
+    (1, 2, 210),
+    (2, 2, 230),
+    (5, 2, 100),
+    (6, 2, 200);
+
 INSERT INTO employees(first_name, last_name, position_id, location_id) VALUES
     ('Витько', 'сын Олегов', 1, 1),
     ('Мария', 'Печеньки', 1, 2),
@@ -149,8 +164,14 @@ INSERT INTO methods(name) VALUES
 
 INSERT INTO receipts(employee_id, location_id, method_id, datetime) VALUES
     (1, 1, 1, '2016-06-22 19:10:25-07'),
-    (2, 1, 1, '2016-06-22 19:12:25-07'),
+    (2, 1, 1, '2016-06-23 19:12:25-07'),
     (1, 1, 1, '2016-06-24 11:11:25-07');
+
+INSERT INTO purchases(receipt_id, price_id, amount, price, result) VALUES
+    (1, 1, 1.1, 200, 220),
+    (1, 2, 2, 250, 500),
+    (1, 3, 1, 500, 500),
+    (2, 1, 1, 200, 200);
 
 
 -- remove lock that prevents concurrent db conversion; must be the last thing we do here
@@ -162,3 +183,7 @@ SELECT * FROM positions;
 SELECT * FROM locations;
 SELECT * FROM employees;
 SELECT * FROM receipts;
+SELECT * FROM purchases;
+
+SELECT products.name, locations.name, price FROM prices, products, locations WHERE prices.product_id = products.id AND prices.location_id = locations.id;
+SELECT COUNT(*) FROM prices, products, locations WHERE prices.product_id = products.id AND prices.location_id = locations.id;
