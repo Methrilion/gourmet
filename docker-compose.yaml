@@ -53,3 +53,16 @@ services:
       gourmet-db:
         condition: service_healthy
     container_name: svc-storage-reader
+
+  svc-statistics:
+    image: svc-statistics:latest
+    environment:
+    - STATISTICS_SERVICE_ADDRESS=:9094
+    env_file:
+    - ./config/docker/gourmet-db.env
+    ports:
+    - 9094:9094
+    depends_on:
+      gourmet-db:
+        condition: service_healthy
+    container_name: svc-statistics

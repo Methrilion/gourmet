@@ -171,7 +171,11 @@ INSERT INTO purchases(receipt_id, price_id, amount, price, result) VALUES
     (1, 1, 1.1, 200, 220),
     (1, 2, 2, 250, 500),
     (1, 3, 1, 500, 500),
-    (2, 1, 1, 200, 200);
+    (2, 1, 1, 200, 200),
+    (3, 3, 1, 500, 500),
+    (3, 3, 1, 500, 500),
+    (3, 3, 1, 500, 500),
+    (3, 3, 2, 500, 1000);
 
 
 -- remove lock that prevents concurrent db conversion; must be the last thing we do here
@@ -187,3 +191,8 @@ SELECT * FROM purchases;
 
 SELECT products.name, locations.name, price FROM prices, products, locations WHERE prices.product_id = products.id AND prices.location_id = locations.id;
 SELECT COUNT(*) FROM prices, products, locations WHERE prices.product_id = products.id AND prices.location_id = locations.id;
+SELECT * FROM purchases, receipts WHERE purchases.receipt_id = receipts.id AND receipts.datetime < '2016-07-24 11:11:25-07' AND receipts.datetime > '2016-05-24 11:11:25-07';
+SELECT SUM(amount), SUM(result) FROM purchases, receipts WHERE purchases.price_id = 3 AND purchases.receipt_id = receipts.id AND receipts.datetime < '2016-07-24 11:11:25-07' AND receipts.datetime > '2016-05-24 11:11:25-07';
+
+-- Get 
+
