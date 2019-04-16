@@ -115,7 +115,37 @@ service StorageReaderService {
             get: "/purchases/{id}"
         };
     }
+
+
+
+
+    rpc GetCountPurchasesByYear (GetCountPurchasesByYearRequest) returns (GetCountPurchasesByYearResponse) {
+        option (google.api.http) = {
+            get: "/purchases_by_year/{year}"
+        };
+
+    }
 }
+
+
+
+
+
+
+
+
+message GetCountPurchasesByYearRequest {    
+    int32 year = 1;
+}
+
+message GetCountPurchasesByYearResponse {
+    repeated int32 counts = 1;
+}
+
+
+
+
+
 
 message ListCurrencyRequest {}
 

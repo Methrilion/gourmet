@@ -165,7 +165,7 @@ INSERT INTO methods(name) VALUES
 INSERT INTO receipts(employee_id, location_id, method_id, datetime) VALUES
     (1, 1, 1, '2016-06-22 19:10:25-07'),
     (2, 1, 1, '2016-06-23 19:12:25-07'),
-    (1, 1, 1, '2016-06-24 11:11:25-07');
+    (1, 1, 1, '2016-07-24 11:11:25-07');
 
 INSERT INTO purchases(receipt_id, price_id, amount, price, result) VALUES
     (1, 1, 1.1, 200, 220),
@@ -175,6 +175,7 @@ INSERT INTO purchases(receipt_id, price_id, amount, price, result) VALUES
     (3, 3, 1, 500, 500),
     (3, 3, 1, 500, 500),
     (3, 3, 1, 500, 500),
+    (1, 3, 1, 500, 500),
     (3, 3, 2, 500, 1000);
 
 

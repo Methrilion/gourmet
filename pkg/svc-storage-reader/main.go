@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
@@ -46,6 +47,38 @@ func main() {
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v\n", err)
 	}
+}
+
+func getMonths(year int) ([12]time.Time, [12]time.Time) {
+	var starts [12]time.Time
+	var ends [12]time.Time
+
+	for i := 0; i < 12; i++ {
+		starts[i] = time.Date(year, time.Month(i+1), 1, 0, 0, 0, 0, time.UTC)
+		ends[i] = time.Date(year, time.Month(i+2), 1, 0, 0, 0, -1, time.UTC)
+	}
+	return starts, ends
+}
+
+func (s *storageReaderService) GetCountPurchasesByYear(ctx context.Context, in *pb.GetCountPurchasesByYearRequest) (*pb.GetCountPurchasesByYearResponse, error) {
+
+	startMonths, endMonths := getMonths(int(in.GetYear()))
+	var counts [12]int32
+
+	for i := 0; i < 12; i++ {
+		err := storageReader.gormDB.Table("purchases").
+			Joins("LEFT JOIN receipts ON purchases.receipt_id = receipts.id").
+			Where("datetime BETWEEN ? AND ?", startMonths[i], endMonths[i]).
+			Count(&counts[i]).Error
+
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return &pb.GetCountPurchasesByYearResponse{
+		Counts: counts[:],
+	}, nil
 }
 
 func (s *storageReaderService) ListCurrency(ctx context.Context, in *pb.ListCurrencyRequest) (*pb.ListCurrencyResponse, error) {
