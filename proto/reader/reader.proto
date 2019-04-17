@@ -4,6 +4,7 @@ package reader;
 
 import "github.com/methrilion/gourmet/proto/model/model.proto";
 import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
 
 service StorageReaderService {
     rpc ListCurrency (ListCurrencyRequest) returns (ListCurrencyResponse) {
@@ -120,9 +121,12 @@ service StorageReaderService {
 
 
     rpc GetCountPurchasesByYear (GetCountPurchasesByYearRequest) returns (GetCountPurchasesByYearResponse) {
-        option (google.api.http) = {
-            get: "/purchases_by_year/{year}"
-        };
+
+    }
+    rpc GetRevenuePurchasesByDatesByPrice (GetRevenuePurchasesByDatesByPriceRequest) returns (GetRevenuePurchasesByDatesByPriceResponse) {
+
+    }
+    rpc GetRevenuePurchasesByDatesByProduct (GetRevenuePurchasesByDatesByProductRequest) returns (GetRevenuePurchasesByDatesByProductResponse) {
 
     }
 }
@@ -133,8 +137,27 @@ service StorageReaderService {
 
 
 
+message GetRevenuePurchasesByDatesByProductRequest {
+    uint32 product_id = 1;
+    google.protobuf.Timestamp start = 2;
+    google.protobuf.Timestamp end = 3;
+}
 
-message GetCountPurchasesByYearRequest {    
+message GetRevenuePurchasesByDatesByProductResponse {
+    float revenue = 1;
+}
+
+message GetRevenuePurchasesByDatesByPriceRequest {
+    uint32 price_id = 1;
+    google.protobuf.Timestamp start = 2;
+    google.protobuf.Timestamp end = 3;
+}
+
+message GetRevenuePurchasesByDatesByPriceResponse {
+    float revenue = 1;
+}
+
+message GetCountPurchasesByYearRequest {
     int32 year = 1;
 }
 

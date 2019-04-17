@@ -145,7 +145,7 @@ INSERT INTO prices(product_id, location_id, price) VALUES
     (1, 1, 200),
     (2, 1, 250),
     (3, 1, 500),
-    (4, 1, 100),
+    (3, 2, 550),
     (5, 1, 100),
     (1, 2, 210),
     (2, 2, 230),
@@ -176,6 +176,7 @@ INSERT INTO purchases(receipt_id, price_id, amount, price, result) VALUES
     (3, 3, 1, 500, 500),
     (3, 3, 1, 500, 500),
     (1, 3, 1, 500, 500),
+    (3, 4, 1, 500, 500),
     (3, 3, 2, 500, 1000);
 
 
