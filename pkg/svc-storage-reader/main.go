@@ -141,10 +141,13 @@ func (s *storageReaderService) GetRevenuePurchasesByDatesByPrice(ctx context.Con
 	}
 	var revenue Result
 
-	err = storageReader.gormDB.Table("purchases").
-		Select("sum(result) as total").
-		Joins("JOIN receipts ON purchases.receipt_id = receipts.id AND datetime BETWEEN ? AND ?", start, end).
-		Where("price_id = ? ", in.GetPriceId()).
+	err = storageReader.gormDB.
+		Raw("SELECT SUM(result) AS total "+
+			"FROM purchases, receipts "+
+			"WHERE purchases.price_id = ? "+
+			"AND purchases.receipt_id = receipts.id "+
+			"AND receipts.datetime BETWEEN ? AND ?",
+			in.GetPriceId(), start, end).
 		Scan(&revenue).Error
 	if err != nil {
 		return nil, err
