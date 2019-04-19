@@ -44,8 +44,6 @@ func main() {
 	/////////////////
 
 	runTestFuncs()
-	statistics.GetPricesStatisticsByYear(nil, &pb.GetPricesStatisticsByYearRequest{Year: 2016})
-	statistics.GetProductsStatisticsByYear(nil, &pb.GetProductsStatisticsByYearRequest{Year: 2016})
 
 	/////////////////
 
@@ -162,6 +160,15 @@ func (s *statisticsService) GetPricesStatisticsByYear(ctx context.Context, in *p
 		pricesStats = append(pricesStats, tmp)
 	}
 
+	var results [12]float32
+	for i := 0; i < 12; i++ {
+		var sum float32
+		for _, a := range pricesStats {
+			sum += a.revenues[i]
+		}
+		results[i] = sum
+	}
+
 	log.Println(pricesStats)
 
 	var pbresult []*pb.PricesStat
@@ -175,6 +182,7 @@ func (s *statisticsService) GetPricesStatisticsByYear(ctx context.Context, in *p
 	}
 	return &pb.GetPricesStatisticsByYearResponse{
 		PricesStat: pbresult,
+		Results:    results[:],
 	}, nil
 }
 
@@ -221,6 +229,15 @@ func (s *statisticsService) GetProductsStatisticsByYear(ctx context.Context, in 
 		productsStats = append(productsStats, tmp)
 	}
 
+	var results [12]float32
+	for i := 0; i < 12; i++ {
+		var sum float32
+		for _, a := range productsStats {
+			sum += a.revenues[i]
+		}
+		results[i] = sum
+	}
+
 	log.Println(productsStats)
 
 	var pbresult []*pb.ProductsStat
@@ -234,5 +251,6 @@ func (s *statisticsService) GetProductsStatisticsByYear(ctx context.Context, in 
 	}
 	return &pb.GetProductsStatisticsByYearResponse{
 		ProductsStat: pbresult,
+		Results:      results[:],
 	}, nil
 }

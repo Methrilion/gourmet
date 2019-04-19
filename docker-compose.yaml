@@ -66,3 +66,17 @@ services:
       gourmet-db:
         condition: service_healthy
     container_name: svc-statistics
+
+  svc-analytics:
+    image: svc-analytics:latest
+    environment:
+    - STATISTICS_SERVICE_FULLADDRESS=svc-statistics:9094
+    - ANALYTICS_SERVICE_ADDRESS=:9095
+    env_file:
+    - ./config/docker/gourmet-db.env
+    ports:
+    - 9095:9095
+    depends_on:
+      gourmet-db:
+        condition: service_healthy
+    container_name: svc-analytics

@@ -23,6 +23,7 @@ message GetPricesStatisticsByYearRequest {
 }
 message GetPricesStatisticsByYearResponse {
     repeated PricesStat prices_stat = 1;
+    repeated float results = 2;
 }
 
 message ProductsStat {
@@ -36,4 +37,5 @@ message GetProductsStatisticsByYearRequest {
 
 message GetProductsStatisticsByYearResponse {
     repeated ProductsStat products_stat = 1;
+    repeated float results = 2;
 }
