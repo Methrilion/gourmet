@@ -195,24 +195,24 @@ func (s *statisticsService) GetProductsStatisticsByYear(ctx context.Context, in 
 	}
 
 	ctxBack := context.Background()
-	response, err := statistics.reader.ListProducts(ctxBack, &pbreader.ListProductsRequest{})
+	pbListProducts, err := statistics.reader.ListProducts(ctxBack, &pbreader.ListProductsRequest{})
 	if err != nil {
 		return nil, err
 	}
 
 	starts, ends := getMonths(int(in.GetYear()))
 
-	var productsStats []productsStat
+	var productsStats []*pb.ProductsStat
 
-	for _, a := range response.Products {
+	for _, a := range pbListProducts.Products {
 		id := a.GetId()
-		tmp := productsStat{id: id}
+		tmp := &pb.ProductsStat{Id: id}
 
 		for j := 0; j < 12; j++ {
 			start, _ := ptypes.TimestampProto(starts[j])
 			end, _ := ptypes.TimestampProto(ends[j])
 
-			response2, err := statistics.reader.GetRevenuePurchasesByDatesByProduct(ctxBack,
+			res, err := statistics.reader.GetRevenuePurchasesByDatesByProduct(ctxBack,
 				&pbreader.GetRevenuePurchasesByDatesByProductRequest{
 					ProductId: id,
 					Start:     start,
@@ -221,36 +221,26 @@ func (s *statisticsService) GetProductsStatisticsByYear(ctx context.Context, in 
 			if err != nil {
 				return nil, err
 			}
-			log.Println(response2.Revenue)
 
-			tmp.revenues = append(tmp.revenues, response2.Revenue)
-			tmp.sum += response2.Revenue
+			tmp.Revenues = append(tmp.Revenues, res.Revenue)
+			tmp.Sum += res.Revenue
 		}
 		productsStats = append(productsStats, tmp)
 	}
 
 	var results [12]float32
 	for i := 0; i < 12; i++ {
-		var sum float32
+		var revenueByMonth float32
 		for _, a := range productsStats {
-			sum += a.revenues[i]
+			revenueByMonth += a.Revenues[i]
 		}
-		results[i] = sum
+		results[i] = revenueByMonth
 	}
 
 	log.Println(productsStats)
 
-	var pbresult []*pb.ProductsStat
-	for _, a := range productsStats {
-		pbresult = append(pbresult,
-			&pb.ProductsStat{
-				Id:       a.id,
-				Revenues: a.revenues,
-				Sum:      a.sum,
-			})
-	}
 	return &pb.GetProductsStatisticsByYearResponse{
-		ProductsStat: pbresult,
+		ProductsStat: productsStats,
 		Results:      results[:],
 	}, nil
 }

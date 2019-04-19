@@ -36,25 +36,15 @@ func main() {
 	defer conn.Close()
 	log.Println("Connection successful")
 
-	c := pbstatistics.NewStatisticsServiceClient(conn)
-	analytics.statistics = c
+	analytics.statistics = pbstatistics.NewStatisticsServiceClient(conn)
 
-	// res, _ := analytics.statistics.GetPricesStatisticsByYear(ctx, &pbstatistics.GetPricesStatisticsByYearRequest{Year: 2016})
-	// log.Println(res)
-	// res2, _ := analytics.statistics.GetProductsStatisticsByYear(ctx, &pbstatistics.GetProductsStatisticsByYearRequest{Year: 2016})
-	// log.Println(res2)
-
-	/////////////////
-
-	/////////////////
+	///////////////// TEST PART ////////////////////////////////////////////
 
 	ctx := context.Background()
 	res, _ := analytics.GetABCByPrices(ctx, &pb.GetABCByPricesRequest{Year: 2016})
 	log.Println(res)
 
-	/////////////////
-
-	/////////////////
+	///////////////////////////////////////////////////////////////////////
 
 	lis, err := net.Listen("tcp", os.Getenv("ANALYTICS_SERVICE_ADDRESS"))
 	if err != nil {
@@ -71,6 +61,17 @@ func main() {
 		log.Fatalf("Failed to serve: %v\n", err)
 	}
 }
+
+func getStringABC(state int) string {
+	if state == 0 {
+		return "A"
+	}
+	if state == 1 {
+		return "B"
+	}
+	return "C"
+}
+
 func (s *analyticsService) GetABCByPrices(ctx context.Context, in *pb.GetABCByPricesRequest) (*pb.GetABCByPricesResponse, error) {
 	ctxBack := context.Background()
 	res, _ := analytics.statistics.GetPricesStatisticsByYear(ctxBack, &pbstatistics.GetPricesStatisticsByYearRequest{Year: in.GetYear()})
@@ -85,12 +86,7 @@ func (s *analyticsService) GetABCByPrices(ctx context.Context, in *pb.GetABCByPr
 		2 * (length / 3),
 		length,
 	}
-	result := struct {
-		ids []uint32
-		ABC []string
-	}{
-		make([]uint32, length), make([]string, length),
-	}
+	result := []*pb.PriceABC{}
 
 	var state int
 
@@ -102,22 +98,10 @@ func (s *analyticsService) GetABCByPrices(ctx context.Context, in *pb.GetABCByPr
 				break
 			}
 		}
-		result.ids[i] = pricesStats[i].Id
-		result.ABC[i] = getStringABC(state)
+		result = append(result, &pb.PriceABC{Id: pricesStats[i].Id, ABC: getStringABC(state)})
 	}
 
 	return &pb.GetABCByPricesResponse{
-		Ids: result.ids,
-		ABC: result.ABC,
+		PriceABC: result,
 	}, nil
-}
-
-func getStringABC(state int) string {
-	if state == 0 {
-		return "A"
-	}
-	if state == 1 {
-		return "B"
-	}
-	return "C"
 }
