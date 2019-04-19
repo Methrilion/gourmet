@@ -46,30 +46,6 @@ func main() {
 
 	log.Println("Now listening on", os.Getenv("STORAGE_READER_SERVICE_ADDRESS"))
 
-	////////////////////// DELETE THIS PART ////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	time.Sleep(5 * time.Second)
-	storageReader.gormDB.LogMode(true)
-	storageReader.GetCountPurchasesByYear(nil,
-		&pb.GetCountPurchasesByYearRequest{Year: 2016})
-
-	start, _ := ptypes.TimestampProto(time.Date(2016, 7, 1, 0, 0, 0, 0, time.UTC))
-	end, _ := ptypes.TimestampProto(time.Date(2016, 8, 1, 0, 0, 0, -1, time.UTC))
-	storageReader.GetRevenuePurchasesByDatesByPrice(nil,
-		&pb.GetRevenuePurchasesByDatesByPriceRequest{
-			PriceId: 3,
-			Start:   start,
-			End:     end,
-		})
-
-	storageReader.GetRevenuePurchasesByDatesByProduct(nil,
-		&pb.GetRevenuePurchasesByDatesByProductRequest{
-			ProductId: 3,
-			Start:     start,
-			End:       end,
-		})
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v\n", err)
 	}
@@ -134,7 +110,6 @@ func (s *storageReaderService) GetRevenuePurchasesByDatesByPrice(ctx context.Con
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(start, end)
 
 	type Result struct {
 		Total float32
