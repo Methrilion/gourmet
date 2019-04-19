@@ -64,4 +64,8 @@ protobuf:
 			-I$(GOPATH)/src \
 			--go_out=plugins=grpc:. \
 			proto/statistics/statistics.proto
+		protoc -I. \
+			-I$(GOPATH)/src \
+			--go_out=plugins=grpc:. \
+			proto/analytics/analytics.proto
 

@@ -3,10 +3,12 @@ package main
 import (
 	"context"
 	"log"
+	"net"
 	"os"
+	"sort"
 	"time"
 
-	pb "github.com/methrilion/gourmet/proto/statistics"
+	pb "github.com/methrilion/gourmet/proto/analytics"
 	pbstatistics "github.com/methrilion/gourmet/proto/statistics"
 	"google.golang.org/grpc"
 )
@@ -37,40 +39,85 @@ func main() {
 	c := pbstatistics.NewStatisticsServiceClient(conn)
 	analytics.statistics = c
 
+	// res, _ := analytics.statistics.GetPricesStatisticsByYear(ctx, &pbstatistics.GetPricesStatisticsByYearRequest{Year: 2016})
+	// log.Println(res)
+	// res2, _ := analytics.statistics.GetProductsStatisticsByYear(ctx, &pbstatistics.GetProductsStatisticsByYearRequest{Year: 2016})
+	// log.Println(res2)
+
+	/////////////////
+
+	/////////////////
+
 	ctx := context.Background()
-	res, _ := analytics.statistics.GetPricesStatisticsByYear(ctx, &pb.GetPricesStatisticsByYearRequest{Year: 2016})
+	res, _ := analytics.GetABCByPrices(ctx, &pb.GetABCByPricesRequest{Year: 2016})
 	log.Println(res)
-	res2, _ := analytics.statistics.GetProductsStatisticsByYear(ctx, &pb.GetProductsStatisticsByYearRequest{Year: 2016})
-	log.Println(res2)
 
 	/////////////////
 
 	/////////////////
 
-	// runTestFuncs()
-	// statistics.GetPricesStatisticsByYear(nil, &pb.GetPricesStatisticsByYearRequest{Year: 2016})
-	// statistics.GetProductsStatisticsByYear(nil, &pb.GetProductsStatisticsByYearRequest{Year: 2016})
+	lis, err := net.Listen("tcp", os.Getenv("ANALYTICS_SERVICE_ADDRESS"))
+	if err != nil {
+		log.Fatalf("Failed to listen: %v", err)
+	}
+	defer lis.Close()
 
-	/////////////////
+	s := grpc.NewServer()
+	pb.RegisterAnalyticsServiceServer(s, &analytics)
 
-	/////////////////
+	log.Println("Now listening on", os.Getenv("ANALYTICS_SERVICE_ADDRESS"))
 
-	// lis, err := net.Listen("tcp", os.Getenv("STATISTICS_SERVICE_ADDRESS"))
-	// if err != nil {
-	// 	log.Fatalf("Failed to listen: %v", err)
-	// }
-	// defer lis.Close()
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("Failed to serve: %v\n", err)
+	}
+}
+func (s *analyticsService) GetABCByPrices(ctx context.Context, in *pb.GetABCByPricesRequest) (*pb.GetABCByPricesResponse, error) {
+	ctxBack := context.Background()
+	res, _ := analytics.statistics.GetPricesStatisticsByYear(ctxBack, &pbstatistics.GetPricesStatisticsByYearRequest{Year: in.GetYear()})
 
-	// s := grpc.NewServer()
-	// pb.RegisterStatisticsServiceServer(s, &statistics)
+	pricesStats := res.PricesStat
+	length := len(pricesStats)
 
-	// /////////////////
+	sort.Slice(pricesStats, func(i, j int) bool { return pricesStats[i].Sum > pricesStats[j].Sum })
 
-	// /////////////////
+	parts := []int{
+		length / 3,
+		2 * (length / 3),
+		length,
+	}
+	result := struct {
+		ids []uint32
+		ABC []string
+	}{
+		make([]uint32, length), make([]string, length),
+	}
 
-	// log.Println("Now listening on", os.Getenv("STATISTICS_SERVICE_ADDRESS"))
+	var state int
 
-	// if err := s.Serve(lis); err != nil {
-	// 	log.Fatalf("Failed to serve: %v\n", err)
-	// }
+	for i := 0; i < length; i++ {
+
+		for j := 0; j < 3; j++ {
+			if i < parts[j] {
+				state = j
+				break
+			}
+		}
+		result.ids[i] = pricesStats[i].Id
+		result.ABC[i] = getStringABC(state)
+	}
+
+	return &pb.GetABCByPricesResponse{
+		Ids: result.ids,
+		ABC: result.ABC,
+	}, nil
+}
+
+func getStringABC(state int) string {
+	if state == 0 {
+		return "A"
+	}
+	if state == 1 {
+		return "B"
+	}
+	return "C"
 }
