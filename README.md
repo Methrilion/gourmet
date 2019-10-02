@@ -2,7 +2,7 @@
 
 ### Integrator service. How to use
 
-#### Get ALl Currency
+#### Get all Currency
 
     curl -X GET \
       http://localhost:9092/currency
@@ -17,10 +17,10 @@
         "code": "TOP"
     }'
 
-#### Get ALl Rateы Of Exchange
+#### Get all Rates Of Exchange
 
     curl -X GET \
-      http://localhost:9092/currency
+      http://localhost:9092/rates_of_exchange
 
 
 #### Сreate Rate Of Exchange
@@ -34,7 +34,7 @@
         "price": 49.99
     }'
 
-#### Get ALl Locations
+#### Get all Locations
 
     curl -X GET \
       http://localhost:9092/locations

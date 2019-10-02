@@ -7,6 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	model "github.com/methrilion/gourmet/proto/model"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
@@ -26,6 +27,284 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type GetRevenuePurchasesByDatesByProductRequest struct {
+	ProductId            uint32               `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
+	Start                *timestamp.Timestamp `protobuf:"bytes,2,opt,name=start,proto3" json:"start,omitempty"`
+	End                  *timestamp.Timestamp `protobuf:"bytes,3,opt,name=end,proto3" json:"end,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *GetRevenuePurchasesByDatesByProductRequest) Reset() {
+	*m = GetRevenuePurchasesByDatesByProductRequest{}
+}
+func (m *GetRevenuePurchasesByDatesByProductRequest) String() string {
+	return proto.CompactTextString(m)
+}
+func (*GetRevenuePurchasesByDatesByProductRequest) ProtoMessage() {}
+func (*GetRevenuePurchasesByDatesByProductRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ed0bf67d7f67361a, []int{0}
+}
+
+func (m *GetRevenuePurchasesByDatesByProductRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetRevenuePurchasesByDatesByProductRequest.Unmarshal(m, b)
+}
+func (m *GetRevenuePurchasesByDatesByProductRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetRevenuePurchasesByDatesByProductRequest.Marshal(b, m, deterministic)
+}
+func (m *GetRevenuePurchasesByDatesByProductRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetRevenuePurchasesByDatesByProductRequest.Merge(m, src)
+}
+func (m *GetRevenuePurchasesByDatesByProductRequest) XXX_Size() int {
+	return xxx_messageInfo_GetRevenuePurchasesByDatesByProductRequest.Size(m)
+}
+func (m *GetRevenuePurchasesByDatesByProductRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetRevenuePurchasesByDatesByProductRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetRevenuePurchasesByDatesByProductRequest proto.InternalMessageInfo
+
+func (m *GetRevenuePurchasesByDatesByProductRequest) GetProductId() uint32 {
+	if m != nil {
+		return m.ProductId
+	}
+	return 0
+}
+
+func (m *GetRevenuePurchasesByDatesByProductRequest) GetStart() *timestamp.Timestamp {
+	if m != nil {
+		return m.Start
+	}
+	return nil
+}
+
+func (m *GetRevenuePurchasesByDatesByProductRequest) GetEnd() *timestamp.Timestamp {
+	if m != nil {
+		return m.End
+	}
+	return nil
+}
+
+type GetRevenuePurchasesByDatesByProductResponse struct {
+	Revenue              float32  `protobuf:"fixed32,1,opt,name=revenue,proto3" json:"revenue,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetRevenuePurchasesByDatesByProductResponse) Reset() {
+	*m = GetRevenuePurchasesByDatesByProductResponse{}
+}
+func (m *GetRevenuePurchasesByDatesByProductResponse) String() string {
+	return proto.CompactTextString(m)
+}
+func (*GetRevenuePurchasesByDatesByProductResponse) ProtoMessage() {}
+func (*GetRevenuePurchasesByDatesByProductResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ed0bf67d7f67361a, []int{1}
+}
+
+func (m *GetRevenuePurchasesByDatesByProductResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetRevenuePurchasesByDatesByProductResponse.Unmarshal(m, b)
+}
+func (m *GetRevenuePurchasesByDatesByProductResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetRevenuePurchasesByDatesByProductResponse.Marshal(b, m, deterministic)
+}
+func (m *GetRevenuePurchasesByDatesByProductResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetRevenuePurchasesByDatesByProductResponse.Merge(m, src)
+}
+func (m *GetRevenuePurchasesByDatesByProductResponse) XXX_Size() int {
+	return xxx_messageInfo_GetRevenuePurchasesByDatesByProductResponse.Size(m)
+}
+func (m *GetRevenuePurchasesByDatesByProductResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetRevenuePurchasesByDatesByProductResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetRevenuePurchasesByDatesByProductResponse proto.InternalMessageInfo
+
+func (m *GetRevenuePurchasesByDatesByProductResponse) GetRevenue() float32 {
+	if m != nil {
+		return m.Revenue
+	}
+	return 0
+}
+
+type GetRevenuePurchasesByDatesByPriceRequest struct {
+	PriceId              uint32               `protobuf:"varint,1,opt,name=price_id,json=priceId,proto3" json:"price_id,omitempty"`
+	Start                *timestamp.Timestamp `protobuf:"bytes,2,opt,name=start,proto3" json:"start,omitempty"`
+	End                  *timestamp.Timestamp `protobuf:"bytes,3,opt,name=end,proto3" json:"end,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *GetRevenuePurchasesByDatesByPriceRequest) Reset() {
+	*m = GetRevenuePurchasesByDatesByPriceRequest{}
+}
+func (m *GetRevenuePurchasesByDatesByPriceRequest) String() string { return proto.CompactTextString(m) }
+func (*GetRevenuePurchasesByDatesByPriceRequest) ProtoMessage()    {}
+func (*GetRevenuePurchasesByDatesByPriceRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ed0bf67d7f67361a, []int{2}
+}
+
+func (m *GetRevenuePurchasesByDatesByPriceRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetRevenuePurchasesByDatesByPriceRequest.Unmarshal(m, b)
+}
+func (m *GetRevenuePurchasesByDatesByPriceRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetRevenuePurchasesByDatesByPriceRequest.Marshal(b, m, deterministic)
+}
+func (m *GetRevenuePurchasesByDatesByPriceRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetRevenuePurchasesByDatesByPriceRequest.Merge(m, src)
+}
+func (m *GetRevenuePurchasesByDatesByPriceRequest) XXX_Size() int {
+	return xxx_messageInfo_GetRevenuePurchasesByDatesByPriceRequest.Size(m)
+}
+func (m *GetRevenuePurchasesByDatesByPriceRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetRevenuePurchasesByDatesByPriceRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetRevenuePurchasesByDatesByPriceRequest proto.InternalMessageInfo
+
+func (m *GetRevenuePurchasesByDatesByPriceRequest) GetPriceId() uint32 {
+	if m != nil {
+		return m.PriceId
+	}
+	return 0
+}
+
+func (m *GetRevenuePurchasesByDatesByPriceRequest) GetStart() *timestamp.Timestamp {
+	if m != nil {
+		return m.Start
+	}
+	return nil
+}
+
+func (m *GetRevenuePurchasesByDatesByPriceRequest) GetEnd() *timestamp.Timestamp {
+	if m != nil {
+		return m.End
+	}
+	return nil
+}
+
+type GetRevenuePurchasesByDatesByPriceResponse struct {
+	Revenue              float32  `protobuf:"fixed32,1,opt,name=revenue,proto3" json:"revenue,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetRevenuePurchasesByDatesByPriceResponse) Reset() {
+	*m = GetRevenuePurchasesByDatesByPriceResponse{}
+}
+func (m *GetRevenuePurchasesByDatesByPriceResponse) String() string { return proto.CompactTextString(m) }
+func (*GetRevenuePurchasesByDatesByPriceResponse) ProtoMessage()    {}
+func (*GetRevenuePurchasesByDatesByPriceResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ed0bf67d7f67361a, []int{3}
+}
+
+func (m *GetRevenuePurchasesByDatesByPriceResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetRevenuePurchasesByDatesByPriceResponse.Unmarshal(m, b)
+}
+func (m *GetRevenuePurchasesByDatesByPriceResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetRevenuePurchasesByDatesByPriceResponse.Marshal(b, m, deterministic)
+}
+func (m *GetRevenuePurchasesByDatesByPriceResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetRevenuePurchasesByDatesByPriceResponse.Merge(m, src)
+}
+func (m *GetRevenuePurchasesByDatesByPriceResponse) XXX_Size() int {
+	return xxx_messageInfo_GetRevenuePurchasesByDatesByPriceResponse.Size(m)
+}
+func (m *GetRevenuePurchasesByDatesByPriceResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetRevenuePurchasesByDatesByPriceResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetRevenuePurchasesByDatesByPriceResponse proto.InternalMessageInfo
+
+func (m *GetRevenuePurchasesByDatesByPriceResponse) GetRevenue() float32 {
+	if m != nil {
+		return m.Revenue
+	}
+	return 0
+}
+
+type GetCountPurchasesByYearRequest struct {
+	Year                 int32    `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetCountPurchasesByYearRequest) Reset()         { *m = GetCountPurchasesByYearRequest{} }
+func (m *GetCountPurchasesByYearRequest) String() string { return proto.CompactTextString(m) }
+func (*GetCountPurchasesByYearRequest) ProtoMessage()    {}
+func (*GetCountPurchasesByYearRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ed0bf67d7f67361a, []int{4}
+}
+
+func (m *GetCountPurchasesByYearRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCountPurchasesByYearRequest.Unmarshal(m, b)
+}
+func (m *GetCountPurchasesByYearRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCountPurchasesByYearRequest.Marshal(b, m, deterministic)
+}
+func (m *GetCountPurchasesByYearRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCountPurchasesByYearRequest.Merge(m, src)
+}
+func (m *GetCountPurchasesByYearRequest) XXX_Size() int {
+	return xxx_messageInfo_GetCountPurchasesByYearRequest.Size(m)
+}
+func (m *GetCountPurchasesByYearRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCountPurchasesByYearRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetCountPurchasesByYearRequest proto.InternalMessageInfo
+
+func (m *GetCountPurchasesByYearRequest) GetYear() int32 {
+	if m != nil {
+		return m.Year
+	}
+	return 0
+}
+
+type GetCountPurchasesByYearResponse struct {
+	Counts               []int32  `protobuf:"varint,1,rep,packed,name=counts,proto3" json:"counts,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetCountPurchasesByYearResponse) Reset()         { *m = GetCountPurchasesByYearResponse{} }
+func (m *GetCountPurchasesByYearResponse) String() string { return proto.CompactTextString(m) }
+func (*GetCountPurchasesByYearResponse) ProtoMessage()    {}
+func (*GetCountPurchasesByYearResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ed0bf67d7f67361a, []int{5}
+}
+
+func (m *GetCountPurchasesByYearResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCountPurchasesByYearResponse.Unmarshal(m, b)
+}
+func (m *GetCountPurchasesByYearResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCountPurchasesByYearResponse.Marshal(b, m, deterministic)
+}
+func (m *GetCountPurchasesByYearResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCountPurchasesByYearResponse.Merge(m, src)
+}
+func (m *GetCountPurchasesByYearResponse) XXX_Size() int {
+	return xxx_messageInfo_GetCountPurchasesByYearResponse.Size(m)
+}
+func (m *GetCountPurchasesByYearResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCountPurchasesByYearResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetCountPurchasesByYearResponse proto.InternalMessageInfo
+
+func (m *GetCountPurchasesByYearResponse) GetCounts() []int32 {
+	if m != nil {
+		return m.Counts
+	}
+	return nil
+}
+
 type ListCurrencyRequest struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -36,7 +315,7 @@ func (m *ListCurrencyRequest) Reset()         { *m = ListCurrencyRequest{} }
 func (m *ListCurrencyRequest) String() string { return proto.CompactTextString(m) }
 func (*ListCurrencyRequest) ProtoMessage()    {}
 func (*ListCurrencyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{0}
+	return fileDescriptor_ed0bf67d7f67361a, []int{6}
 }
 
 func (m *ListCurrencyRequest) XXX_Unmarshal(b []byte) error {
@@ -68,7 +347,7 @@ func (m *ListCurrencyResponse) Reset()         { *m = ListCurrencyResponse{} }
 func (m *ListCurrencyResponse) String() string { return proto.CompactTextString(m) }
 func (*ListCurrencyResponse) ProtoMessage()    {}
 func (*ListCurrencyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{1}
+	return fileDescriptor_ed0bf67d7f67361a, []int{7}
 }
 
 func (m *ListCurrencyResponse) XXX_Unmarshal(b []byte) error {
@@ -107,7 +386,7 @@ func (m *GetCurrencyRequest) Reset()         { *m = GetCurrencyRequest{} }
 func (m *GetCurrencyRequest) String() string { return proto.CompactTextString(m) }
 func (*GetCurrencyRequest) ProtoMessage()    {}
 func (*GetCurrencyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{2}
+	return fileDescriptor_ed0bf67d7f67361a, []int{8}
 }
 
 func (m *GetCurrencyRequest) XXX_Unmarshal(b []byte) error {
@@ -145,7 +424,7 @@ func (m *ListRatesOfExchangeRequest) Reset()         { *m = ListRatesOfExchangeR
 func (m *ListRatesOfExchangeRequest) String() string { return proto.CompactTextString(m) }
 func (*ListRatesOfExchangeRequest) ProtoMessage()    {}
 func (*ListRatesOfExchangeRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{3}
+	return fileDescriptor_ed0bf67d7f67361a, []int{9}
 }
 
 func (m *ListRatesOfExchangeRequest) XXX_Unmarshal(b []byte) error {
@@ -177,7 +456,7 @@ func (m *ListRatesOfExchangeResponse) Reset()         { *m = ListRatesOfExchange
 func (m *ListRatesOfExchangeResponse) String() string { return proto.CompactTextString(m) }
 func (*ListRatesOfExchangeResponse) ProtoMessage()    {}
 func (*ListRatesOfExchangeResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{4}
+	return fileDescriptor_ed0bf67d7f67361a, []int{10}
 }
 
 func (m *ListRatesOfExchangeResponse) XXX_Unmarshal(b []byte) error {
@@ -216,7 +495,7 @@ func (m *GetRateOfExchangeRequest) Reset()         { *m = GetRateOfExchangeReque
 func (m *GetRateOfExchangeRequest) String() string { return proto.CompactTextString(m) }
 func (*GetRateOfExchangeRequest) ProtoMessage()    {}
 func (*GetRateOfExchangeRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{5}
+	return fileDescriptor_ed0bf67d7f67361a, []int{11}
 }
 
 func (m *GetRateOfExchangeRequest) XXX_Unmarshal(b []byte) error {
@@ -254,7 +533,7 @@ func (m *ListLocationsRequest) Reset()         { *m = ListLocationsRequest{} }
 func (m *ListLocationsRequest) String() string { return proto.CompactTextString(m) }
 func (*ListLocationsRequest) ProtoMessage()    {}
 func (*ListLocationsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{6}
+	return fileDescriptor_ed0bf67d7f67361a, []int{12}
 }
 
 func (m *ListLocationsRequest) XXX_Unmarshal(b []byte) error {
@@ -286,7 +565,7 @@ func (m *ListLocationsResponse) Reset()         { *m = ListLocationsResponse{} }
 func (m *ListLocationsResponse) String() string { return proto.CompactTextString(m) }
 func (*ListLocationsResponse) ProtoMessage()    {}
 func (*ListLocationsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{7}
+	return fileDescriptor_ed0bf67d7f67361a, []int{13}
 }
 
 func (m *ListLocationsResponse) XXX_Unmarshal(b []byte) error {
@@ -325,7 +604,7 @@ func (m *GetLocationRequest) Reset()         { *m = GetLocationRequest{} }
 func (m *GetLocationRequest) String() string { return proto.CompactTextString(m) }
 func (*GetLocationRequest) ProtoMessage()    {}
 func (*GetLocationRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{8}
+	return fileDescriptor_ed0bf67d7f67361a, []int{14}
 }
 
 func (m *GetLocationRequest) XXX_Unmarshal(b []byte) error {
@@ -363,7 +642,7 @@ func (m *ListProductsRequest) Reset()         { *m = ListProductsRequest{} }
 func (m *ListProductsRequest) String() string { return proto.CompactTextString(m) }
 func (*ListProductsRequest) ProtoMessage()    {}
 func (*ListProductsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{9}
+	return fileDescriptor_ed0bf67d7f67361a, []int{15}
 }
 
 func (m *ListProductsRequest) XXX_Unmarshal(b []byte) error {
@@ -395,7 +674,7 @@ func (m *ListProductsResponse) Reset()         { *m = ListProductsResponse{} }
 func (m *ListProductsResponse) String() string { return proto.CompactTextString(m) }
 func (*ListProductsResponse) ProtoMessage()    {}
 func (*ListProductsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{10}
+	return fileDescriptor_ed0bf67d7f67361a, []int{16}
 }
 
 func (m *ListProductsResponse) XXX_Unmarshal(b []byte) error {
@@ -434,7 +713,7 @@ func (m *GetProductRequest) Reset()         { *m = GetProductRequest{} }
 func (m *GetProductRequest) String() string { return proto.CompactTextString(m) }
 func (*GetProductRequest) ProtoMessage()    {}
 func (*GetProductRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{11}
+	return fileDescriptor_ed0bf67d7f67361a, []int{17}
 }
 
 func (m *GetProductRequest) XXX_Unmarshal(b []byte) error {
@@ -472,7 +751,7 @@ func (m *ListPricesRequest) Reset()         { *m = ListPricesRequest{} }
 func (m *ListPricesRequest) String() string { return proto.CompactTextString(m) }
 func (*ListPricesRequest) ProtoMessage()    {}
 func (*ListPricesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{12}
+	return fileDescriptor_ed0bf67d7f67361a, []int{18}
 }
 
 func (m *ListPricesRequest) XXX_Unmarshal(b []byte) error {
@@ -504,7 +783,7 @@ func (m *ListPricesResponse) Reset()         { *m = ListPricesResponse{} }
 func (m *ListPricesResponse) String() string { return proto.CompactTextString(m) }
 func (*ListPricesResponse) ProtoMessage()    {}
 func (*ListPricesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{13}
+	return fileDescriptor_ed0bf67d7f67361a, []int{19}
 }
 
 func (m *ListPricesResponse) XXX_Unmarshal(b []byte) error {
@@ -543,7 +822,7 @@ func (m *GetPriceRequest) Reset()         { *m = GetPriceRequest{} }
 func (m *GetPriceRequest) String() string { return proto.CompactTextString(m) }
 func (*GetPriceRequest) ProtoMessage()    {}
 func (*GetPriceRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{14}
+	return fileDescriptor_ed0bf67d7f67361a, []int{20}
 }
 
 func (m *GetPriceRequest) XXX_Unmarshal(b []byte) error {
@@ -581,7 +860,7 @@ func (m *ListPositionsRequest) Reset()         { *m = ListPositionsRequest{} }
 func (m *ListPositionsRequest) String() string { return proto.CompactTextString(m) }
 func (*ListPositionsRequest) ProtoMessage()    {}
 func (*ListPositionsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{15}
+	return fileDescriptor_ed0bf67d7f67361a, []int{21}
 }
 
 func (m *ListPositionsRequest) XXX_Unmarshal(b []byte) error {
@@ -613,7 +892,7 @@ func (m *ListPositionsResponse) Reset()         { *m = ListPositionsResponse{} }
 func (m *ListPositionsResponse) String() string { return proto.CompactTextString(m) }
 func (*ListPositionsResponse) ProtoMessage()    {}
 func (*ListPositionsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{16}
+	return fileDescriptor_ed0bf67d7f67361a, []int{22}
 }
 
 func (m *ListPositionsResponse) XXX_Unmarshal(b []byte) error {
@@ -652,7 +931,7 @@ func (m *GetPositionRequest) Reset()         { *m = GetPositionRequest{} }
 func (m *GetPositionRequest) String() string { return proto.CompactTextString(m) }
 func (*GetPositionRequest) ProtoMessage()    {}
 func (*GetPositionRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{17}
+	return fileDescriptor_ed0bf67d7f67361a, []int{23}
 }
 
 func (m *GetPositionRequest) XXX_Unmarshal(b []byte) error {
@@ -690,7 +969,7 @@ func (m *ListEmployeesRequest) Reset()         { *m = ListEmployeesRequest{} }
 func (m *ListEmployeesRequest) String() string { return proto.CompactTextString(m) }
 func (*ListEmployeesRequest) ProtoMessage()    {}
 func (*ListEmployeesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{18}
+	return fileDescriptor_ed0bf67d7f67361a, []int{24}
 }
 
 func (m *ListEmployeesRequest) XXX_Unmarshal(b []byte) error {
@@ -722,7 +1001,7 @@ func (m *ListEmployeesResponse) Reset()         { *m = ListEmployeesResponse{} }
 func (m *ListEmployeesResponse) String() string { return proto.CompactTextString(m) }
 func (*ListEmployeesResponse) ProtoMessage()    {}
 func (*ListEmployeesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{19}
+	return fileDescriptor_ed0bf67d7f67361a, []int{25}
 }
 
 func (m *ListEmployeesResponse) XXX_Unmarshal(b []byte) error {
@@ -761,7 +1040,7 @@ func (m *GetEmployeeRequest) Reset()         { *m = GetEmployeeRequest{} }
 func (m *GetEmployeeRequest) String() string { return proto.CompactTextString(m) }
 func (*GetEmployeeRequest) ProtoMessage()    {}
 func (*GetEmployeeRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{20}
+	return fileDescriptor_ed0bf67d7f67361a, []int{26}
 }
 
 func (m *GetEmployeeRequest) XXX_Unmarshal(b []byte) error {
@@ -799,7 +1078,7 @@ func (m *ListMethodsRequest) Reset()         { *m = ListMethodsRequest{} }
 func (m *ListMethodsRequest) String() string { return proto.CompactTextString(m) }
 func (*ListMethodsRequest) ProtoMessage()    {}
 func (*ListMethodsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{21}
+	return fileDescriptor_ed0bf67d7f67361a, []int{27}
 }
 
 func (m *ListMethodsRequest) XXX_Unmarshal(b []byte) error {
@@ -831,7 +1110,7 @@ func (m *ListMethodsResponse) Reset()         { *m = ListMethodsResponse{} }
 func (m *ListMethodsResponse) String() string { return proto.CompactTextString(m) }
 func (*ListMethodsResponse) ProtoMessage()    {}
 func (*ListMethodsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{22}
+	return fileDescriptor_ed0bf67d7f67361a, []int{28}
 }
 
 func (m *ListMethodsResponse) XXX_Unmarshal(b []byte) error {
@@ -870,7 +1149,7 @@ func (m *GetMethodRequest) Reset()         { *m = GetMethodRequest{} }
 func (m *GetMethodRequest) String() string { return proto.CompactTextString(m) }
 func (*GetMethodRequest) ProtoMessage()    {}
 func (*GetMethodRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{23}
+	return fileDescriptor_ed0bf67d7f67361a, []int{29}
 }
 
 func (m *GetMethodRequest) XXX_Unmarshal(b []byte) error {
@@ -908,7 +1187,7 @@ func (m *ListReceiptsRequest) Reset()         { *m = ListReceiptsRequest{} }
 func (m *ListReceiptsRequest) String() string { return proto.CompactTextString(m) }
 func (*ListReceiptsRequest) ProtoMessage()    {}
 func (*ListReceiptsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{24}
+	return fileDescriptor_ed0bf67d7f67361a, []int{30}
 }
 
 func (m *ListReceiptsRequest) XXX_Unmarshal(b []byte) error {
@@ -940,7 +1219,7 @@ func (m *ListReceiptsResponse) Reset()         { *m = ListReceiptsResponse{} }
 func (m *ListReceiptsResponse) String() string { return proto.CompactTextString(m) }
 func (*ListReceiptsResponse) ProtoMessage()    {}
 func (*ListReceiptsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{25}
+	return fileDescriptor_ed0bf67d7f67361a, []int{31}
 }
 
 func (m *ListReceiptsResponse) XXX_Unmarshal(b []byte) error {
@@ -979,7 +1258,7 @@ func (m *GetReceiptRequest) Reset()         { *m = GetReceiptRequest{} }
 func (m *GetReceiptRequest) String() string { return proto.CompactTextString(m) }
 func (*GetReceiptRequest) ProtoMessage()    {}
 func (*GetReceiptRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{26}
+	return fileDescriptor_ed0bf67d7f67361a, []int{32}
 }
 
 func (m *GetReceiptRequest) XXX_Unmarshal(b []byte) error {
@@ -1017,7 +1296,7 @@ func (m *ListPurchasesRequest) Reset()         { *m = ListPurchasesRequest{} }
 func (m *ListPurchasesRequest) String() string { return proto.CompactTextString(m) }
 func (*ListPurchasesRequest) ProtoMessage()    {}
 func (*ListPurchasesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{27}
+	return fileDescriptor_ed0bf67d7f67361a, []int{33}
 }
 
 func (m *ListPurchasesRequest) XXX_Unmarshal(b []byte) error {
@@ -1049,7 +1328,7 @@ func (m *ListPurchasesResponse) Reset()         { *m = ListPurchasesResponse{} }
 func (m *ListPurchasesResponse) String() string { return proto.CompactTextString(m) }
 func (*ListPurchasesResponse) ProtoMessage()    {}
 func (*ListPurchasesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{28}
+	return fileDescriptor_ed0bf67d7f67361a, []int{34}
 }
 
 func (m *ListPurchasesResponse) XXX_Unmarshal(b []byte) error {
@@ -1088,7 +1367,7 @@ func (m *GetPurchaseRequest) Reset()         { *m = GetPurchaseRequest{} }
 func (m *GetPurchaseRequest) String() string { return proto.CompactTextString(m) }
 func (*GetPurchaseRequest) ProtoMessage()    {}
 func (*GetPurchaseRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ed0bf67d7f67361a, []int{29}
+	return fileDescriptor_ed0bf67d7f67361a, []int{35}
 }
 
 func (m *GetPurchaseRequest) XXX_Unmarshal(b []byte) error {
@@ -1117,6 +1396,12 @@ func (m *GetPurchaseRequest) GetId() uint32 {
 }
 
 func init() {
+	proto.RegisterType((*GetRevenuePurchasesByDatesByProductRequest)(nil), "reader.GetRevenuePurchasesByDatesByProductRequest")
+	proto.RegisterType((*GetRevenuePurchasesByDatesByProductResponse)(nil), "reader.GetRevenuePurchasesByDatesByProductResponse")
+	proto.RegisterType((*GetRevenuePurchasesByDatesByPriceRequest)(nil), "reader.GetRevenuePurchasesByDatesByPriceRequest")
+	proto.RegisterType((*GetRevenuePurchasesByDatesByPriceResponse)(nil), "reader.GetRevenuePurchasesByDatesByPriceResponse")
+	proto.RegisterType((*GetCountPurchasesByYearRequest)(nil), "reader.GetCountPurchasesByYearRequest")
+	proto.RegisterType((*GetCountPurchasesByYearResponse)(nil), "reader.GetCountPurchasesByYearResponse")
 	proto.RegisterType((*ListCurrencyRequest)(nil), "reader.ListCurrencyRequest")
 	proto.RegisterType((*ListCurrencyResponse)(nil), "reader.ListCurrencyResponse")
 	proto.RegisterType((*GetCurrencyRequest)(nil), "reader.GetCurrencyRequest")
@@ -1152,68 +1437,84 @@ func init() {
 func init() { proto.RegisterFile("proto/reader/reader.proto", fileDescriptor_ed0bf67d7f67361a) }
 
 var fileDescriptor_ed0bf67d7f67361a = []byte{
-	// 971 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x57, 0x51, 0x6f, 0x1b, 0x45,
-	0x10, 0x56, 0x82, 0x94, 0x26, 0x93, 0xc4, 0x8e, 0xa7, 0x76, 0xe3, 0x6c, 0x82, 0x08, 0xdb, 0x4a,
-	0x54, 0x45, 0xf8, 0xa4, 0x22, 0x5e, 0x78, 0x40, 0x82, 0xaa, 0xf8, 0x81, 0xa2, 0x56, 0x17, 0x1e,
-	0x78, 0x40, 0x6a, 0xaf, 0xe7, 0xad, 0x7d, 0x92, 0xed, 0x3d, 0xee, 0xce, 0x88, 0x82, 0x78, 0xe1,
-	0x2f, 0xf0, 0x53, 0xf8, 0x29, 0xfc, 0x05, 0x7e, 0x48, 0xe5, 0xdb, 0xd9, 0xbd, 0x9d, 0xbd, 0x73,
-	0xf2, 0xd2, 0xca, 0x33, 0xb3, 0x33, 0xdf, 0xcd, 0x7e, 0xfb, 0x7d, 0x0a, 0x5c, 0xe4, 0x85, 0xae,
-	0x74, 0x54, 0xa8, 0x64, 0xa6, 0x0a, 0xfa, 0x6f, 0x52, 0xc7, 0xf0, 0xc0, 0xfc, 0x12, 0x5f, 0xcd,
-	0xb3, 0x6a, 0xb1, 0x79, 0x3b, 0x49, 0xf5, 0x2a, 0x5a, 0xa9, 0x6a, 0x51, 0x64, 0xcb, 0x4c, 0xaf,
-	0xa3, 0xb9, 0xde, 0x14, 0x2b, 0x55, 0x45, 0xa6, 0xc1, 0x4a, 0xcf, 0xd4, 0xd2, 0xfc, 0x6b, 0x8e,
-	0x8b, 0xab, 0xb9, 0xd6, 0xf3, 0xa5, 0x8a, 0x92, 0x3c, 0x8b, 0x92, 0xf5, 0x5a, 0x57, 0x49, 0x95,
-	0xe9, 0x75, 0x69, 0xb2, 0x72, 0x04, 0xf7, 0x5f, 0x64, 0x65, 0xf5, 0x6c, 0x53, 0x14, 0x6a, 0x9d,
-	0xbe, 0x8f, 0xd5, 0xaf, 0x1b, 0x55, 0x56, 0xf2, 0x19, 0x0c, 0x79, 0xb8, 0xcc, 0xf5, 0xba, 0x54,
-	0xf8, 0x39, 0x1c, 0xa6, 0x14, 0x1b, 0xef, 0x5d, 0x7f, 0xf4, 0xf8, 0xf8, 0x69, 0x7f, 0x62, 0x86,
-	0xb9, 0x52, 0x57, 0x20, 0x1f, 0x01, 0x4e, 0x55, 0xd8, 0x1a, 0x7b, 0xb0, 0x9f, 0xcd, 0xc6, 0x7b,
-	0xd7, 0x7b, 0x8f, 0x4f, 0xe3, 0xfd, 0x6c, 0x26, 0xaf, 0x40, 0x6c, 0x47, 0xc5, 0x49, 0xa5, 0xca,
-	0x97, 0xef, 0x9e, 0xff, 0x9e, 0x2e, 0x92, 0xf5, 0x5c, 0x59, 0x20, 0x6f, 0xe0, 0xb2, 0x33, 0x4b,
-	0x78, 0xbe, 0x85, 0x41, 0xb1, 0x4d, 0xbd, 0xd6, 0xef, 0x5e, 0x2b, 0x4a, 0x12, 0xb0, 0x11, 0x01,
-	0xdb, 0x1e, 0xf5, 0x4e, 0xf6, 0x0b, 0xde, 0x4a, 0x3e, 0x81, 0xf1, 0x54, 0x55, 0x41, 0xd5, 0x0e,
-	0xac, 0x0f, 0xcc, 0x5a, 0x5e, 0xe8, 0xd4, 0x2c, 0xd1, 0xa2, 0xfc, 0x1e, 0x46, 0x41, 0x9c, 0xf0,
-	0x7d, 0x01, 0x47, 0x4b, 0x1b, 0x0c, 0x16, 0x66, 0x8b, 0xe3, 0xa6, 0x82, 0x36, 0xe6, 0x32, 0x3b,
-	0x50, 0xd0, 0x9d, 0xbd, 0x2a, 0xf4, 0x6c, 0x93, 0x56, 0x0e, 0xc4, 0x77, 0x06, 0x5c, 0x13, 0x26,
-	0x0c, 0x4f, 0xe0, 0x30, 0xa7, 0x18, 0x41, 0xe8, 0x11, 0x04, 0x2a, 0x8d, 0x5d, 0x5e, 0x3e, 0x84,
-	0xc1, 0x54, 0xd9, 0x16, 0xbb, 0xe6, 0xdf, 0x87, 0x81, 0x19, 0x94, 0xa5, 0xca, 0x4d, 0xff, 0x1a,
-	0xd0, 0x0f, 0xd2, 0xec, 0x47, 0x70, 0x90, 0xd7, 0x11, 0x9a, 0x7c, 0xe2, 0x26, 0x67, 0xa9, 0x8a,
-	0x29, 0x27, 0x3f, 0x85, 0x7e, 0x3d, 0x75, 0x1b, 0xbb, 0x7d, 0xf3, 0xaf, 0x74, 0x99, 0x75, 0x6d,
-	0xde, 0x8b, 0x37, 0x9b, 0xcf, 0x6d, 0x30, 0xd8, 0xbc, 0x2d, 0x8e, 0x9b, 0x0a, 0xda, 0xbc, 0xcb,
-	0xdc, 0x8e, 0xe2, 0xf9, 0x2a, 0x5f, 0xea, 0xf7, 0x4a, 0x85, 0x28, 0xbc, 0x78, 0x83, 0x42, 0xd9,
-	0x60, 0x80, 0xc2, 0x16, 0xc7, 0x4d, 0x05, 0xa1, 0x70, 0x99, 0x1d, 0x28, 0x86, 0x66, 0xd5, 0x3f,
-	0xaa, 0x6a, 0xa1, 0x67, 0x0e, 0xc3, 0x37, 0x86, 0x15, 0x2e, 0x4a, 0x08, 0x3e, 0x83, 0x7b, 0x2b,
-	0x13, 0xa2, 0xf9, 0xa7, 0x34, 0xdf, 0x14, 0xc6, 0x36, 0x2b, 0x25, 0x9c, 0x4d, 0x15, 0x1d, 0xbf,
-	0x83, 0x79, 0xb1, 0x4a, 0x55, 0x96, 0xb7, 0x98, 0xd7, 0x84, 0x1b, 0xe6, 0x15, 0x14, 0x0b, 0x98,
-	0x47, 0xa5, 0xb1, 0xcb, 0x13, 0xf3, 0x6c, 0xfc, 0x0e, 0x16, 0x6c, 0x8a, 0x74, 0x91, 0x94, 0xad,
-	0xfd, 0x7b, 0x71, 0x8f, 0x05, 0x36, 0x18, 0xb2, 0x80, 0xe2, 0x71, 0x53, 0x61, 0x59, 0x60, 0x33,
-	0xdd, 0x28, 0x9e, 0xfe, 0xdb, 0x83, 0xe1, 0x4d, 0xa5, 0x8b, 0x64, 0x2b, 0x14, 0x5b, 0x69, 0xbe,
-	0x51, 0xc5, 0x6f, 0x59, 0xaa, 0xf0, 0x17, 0x38, 0xf1, 0x55, 0x13, 0x2f, 0x27, 0x24, 0xe4, 0x1d,
-	0x12, 0x2b, 0xae, 0xba, 0x93, 0x06, 0xb8, 0x1c, 0xfc, 0xfd, 0xdf, 0xff, 0xff, 0xec, 0x1f, 0xe3,
-	0x51, 0x64, 0xe5, 0x14, 0x63, 0x38, 0xf6, 0xe4, 0x14, 0x85, 0x3d, 0xdf, 0xd6, 0x58, 0x11, 0x8a,
-	0xb2, 0x7c, 0x50, 0xb7, 0x3b, 0xc3, 0x9e, 0x6b, 0x17, 0xfd, 0x99, 0xcd, 0xfe, 0xc2, 0x3f, 0xe8,
-	0x42, 0xb9, 0x26, 0xa2, 0xf4, 0xb1, 0x75, 0x2b, 0xb3, 0x78, 0x78, 0x6b, 0x0d, 0x7d, 0x86, 0xa8,
-	0xe7, 0x0e, 0x11, 0xa3, 0x96, 0x4c, 0xe3, 0xca, 0xdc, 0x38, 0x13, 0x5e, 0xbc, 0xf6, 0xbe, 0xaa,
-	0x53, 0x93, 0x45, 0xb7, 0xae, 0xcb, 0x4f, 0xea, 0x49, 0x17, 0x78, 0xde, 0x9e, 0x64, 0x3e, 0xf5,
-	0x0d, 0x9c, 0x32, 0x8d, 0x46, 0x76, 0x01, 0xa1, 0xa4, 0x8b, 0x8f, 0x77, 0x64, 0xe9, 0xc3, 0xb0,
-	0x1e, 0x77, 0x82, 0x10, 0x39, 0xf5, 0xc6, 0x9b, 0xfa, 0x82, 0x6c, 0x2d, 0xbb, 0xa0, 0x40, 0xd2,
-	0x45, 0x68, 0x02, 0xf2, 0xbc, 0xee, 0x37, 0xc0, 0x7e, 0xd3, 0xcf, 0xc0, 0x26, 0x4e, 0x59, 0x55,
-	0xe7, 0x9c, 0x0a, 0x2c, 0x80, 0x73, 0x2a, 0x34, 0x02, 0x8f, 0x53, 0x56, 0xef, 0xf1, 0x25, 0x40,
-	0xa3, 0xf7, 0x78, 0xe1, 0x21, 0xe6, 0x1e, 0x20, 0x02, 0xcb, 0xf0, 0x08, 0x65, 0x7b, 0x19, 0xb8,
-	0x3f, 0x01, 0x34, 0x36, 0xd0, 0x34, 0x6c, 0xf9, 0x85, 0x10, 0x5d, 0x29, 0x02, 0xda, 0xaf, 0x9b,
-	0x1f, 0xe1, 0xbd, 0xc8, 0x18, 0x04, 0x4e, 0xe1, 0xd0, 0x1a, 0x04, 0x9e, 0x33, 0x90, 0x8d, 0x65,
-	0x08, 0xe6, 0x2d, 0x72, 0x58, 0xf7, 0xe8, 0xe1, 0x09, 0xf5, 0x60, 0x24, 0x70, 0x76, 0xc1, 0x49,
-	0x10, 0xba, 0x0b, 0x27, 0x41, 0xcb, 0x63, 0x3c, 0x12, 0x38, 0x23, 0x21, 0x12, 0xd8, 0x5a, 0x46,
-	0x82, 0xc0, 0x5d, 0x44, 0xe8, 0x47, 0x1e, 0x09, 0x5c, 0x3f, 0x06, 0xdb, 0xf9, 0x0b, 0x87, 0x1d,
-	0xda, 0x11, 0x87, 0xdd, 0x32, 0x25, 0x0f, 0xb6, 0x73, 0x1e, 0x82, 0x6d, 0x6b, 0x19, 0xec, 0xc0,
-	0x8e, 0x44, 0x68, 0x60, 0x1e, 0x6c, 0xd7, 0xcf, 0xc0, 0xfe, 0x19, 0x8e, 0x3d, 0x4b, 0x42, 0x76,
-	0xe5, 0xdc, 0xbd, 0xc4, 0x65, 0x67, 0x8e, 0x00, 0x9f, 0xd5, 0x03, 0x00, 0x0f, 0x23, 0x32, 0x2b,
-	0xfc, 0x01, 0x8e, 0x9c, 0x59, 0xe1, 0xd8, 0x03, 0xcb, 0xfc, 0x4b, 0x70, 0xaf, 0x93, 0xa3, 0xba,
-	0x4f, 0x1f, 0x4f, 0x6d, 0x1f, 0xf6, 0xc4, 0xac, 0x7d, 0xf1, 0x27, 0x16, 0x78, 0x1d, 0x7f, 0x62,
-	0xa1, 0xe3, 0x79, 0x4f, 0xcc, 0x1a, 0x1b, 0x3d, 0x31, 0xaa, 0x64, 0x4f, 0x8c, 0x9b, 0x9d, 0x08,
-	0xbc, 0xd1, 0x7b, 0x62, 0xb6, 0x17, 0xe7, 0xb0, 0x75, 0xad, 0x80, 0xc3, 0x81, 0x37, 0x06, 0x1c,
-	0x0e, 0x1d, 0xd2, 0xe7, 0xb0, 0x6b, 0x48, 0x1c, 0xa6, 0xdf, 0x9c, 0xc3, 0xdc, 0x1b, 0x45, 0xe8,
-	0xa6, 0x3e, 0x87, 0x6d, 0xbf, 0x1a, 0xf6, 0xdb, 0x83, 0xfa, 0x0f, 0x8e, 0x2f, 0x3f, 0x04, 0x00,
-	0x00, 0xff, 0xff, 0xb6, 0x3f, 0x19, 0x3d, 0xea, 0x0c, 0x00, 0x00,
+	// 1232 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x57, 0xcd, 0x6e, 0x1c, 0x45,
+	0x10, 0x66, 0x6d, 0xfc, 0x57, 0xfe, 0x59, 0x6f, 0xc5, 0x3f, 0xeb, 0xb6, 0x83, 0x9d, 0x76, 0x44,
+	0x8c, 0x03, 0x3b, 0xc1, 0x81, 0x03, 0x1c, 0x90, 0x88, 0x31, 0x2b, 0x44, 0x50, 0xac, 0x71, 0x0e,
+	0x20, 0x21, 0x39, 0xe3, 0xd9, 0xb6, 0x3d, 0xd2, 0xee, 0xce, 0x32, 0x33, 0x1b, 0x61, 0x10, 0x17,
+	0x8e, 0x9c, 0x90, 0x78, 0x06, 0x4e, 0x3c, 0x05, 0xcf, 0xc0, 0x2b, 0xf0, 0x20, 0x68, 0xa6, 0xab,
+	0x7b, 0xba, 0x7b, 0x67, 0xbd, 0xce, 0x85, 0x4b, 0x9c, 0xae, 0xaa, 0xae, 0xfa, 0xba, 0xfb, 0xab,
+	0xfa, 0x76, 0x60, 0x6b, 0x90, 0xc4, 0x59, 0xec, 0x25, 0x22, 0xe8, 0x88, 0x84, 0xfe, 0xb4, 0x0a,
+	0x1b, 0xce, 0xca, 0x15, 0xfb, 0xf8, 0x2a, 0xca, 0xae, 0x87, 0x17, 0xad, 0x30, 0xee, 0x79, 0x3d,
+	0x91, 0x5d, 0x27, 0x51, 0x37, 0x8a, 0xfb, 0xde, 0x55, 0x3c, 0x4c, 0x7a, 0x22, 0xf3, 0x64, 0x82,
+	0x5e, 0xdc, 0x11, 0x5d, 0xf9, 0xaf, 0xdc, 0xce, 0x76, 0xae, 0xe2, 0xf8, 0xaa, 0x2b, 0xbc, 0x60,
+	0x10, 0x79, 0x41, 0xbf, 0x1f, 0x67, 0x41, 0x16, 0xc5, 0xfd, 0x94, 0xbc, 0xbb, 0xe4, 0x2d, 0x56,
+	0x17, 0xc3, 0x4b, 0x2f, 0x8b, 0x7a, 0x22, 0xcd, 0x82, 0xde, 0x40, 0x06, 0xf0, 0xbf, 0x6a, 0x70,
+	0xd8, 0x16, 0x99, 0x2f, 0x5e, 0x8b, 0xfe, 0x50, 0x9c, 0x0e, 0x93, 0xf0, 0x3a, 0x48, 0x45, 0xfa,
+	0xec, 0xe6, 0x8b, 0x20, 0xcb, 0xff, 0x9c, 0x26, 0x71, 0x67, 0x18, 0x66, 0xbe, 0xf8, 0x61, 0x28,
+	0xd2, 0x0c, 0xef, 0x03, 0x0c, 0xa4, 0xe5, 0x3c, 0xea, 0x34, 0x6b, 0x7b, 0xb5, 0x83, 0x65, 0x7f,
+	0x81, 0x2c, 0x5f, 0x75, 0xf0, 0x09, 0xcc, 0xa4, 0x59, 0x90, 0x64, 0xcd, 0xa9, 0xbd, 0xda, 0xc1,
+	0xe2, 0x11, 0x6b, 0xc9, 0xf2, 0x2d, 0x55, 0xbe, 0xf5, 0x52, 0x95, 0xf7, 0x65, 0x20, 0xbe, 0x0f,
+	0xd3, 0xa2, 0xdf, 0x69, 0x4e, 0x4f, 0x8c, 0xcf, 0xc3, 0x78, 0x1b, 0x1e, 0xdf, 0x09, 0x6c, 0x3a,
+	0x88, 0xfb, 0xa9, 0xc0, 0x26, 0xcc, 0x25, 0x32, 0xb6, 0x80, 0x3a, 0xe5, 0xab, 0x25, 0xff, 0xb3,
+	0x06, 0x07, 0xb7, 0x67, 0x8a, 0x42, 0xa1, 0x0e, 0xbd, 0x05, 0xf3, 0x83, 0x7c, 0x5d, 0x1e, 0x79,
+	0xae, 0x58, 0xff, 0x0f, 0x07, 0x3e, 0x81, 0xf7, 0xee, 0x00, 0x73, 0xe2, 0x71, 0x3f, 0x82, 0x77,
+	0xda, 0x22, 0x3b, 0x8e, 0x87, 0xfd, 0xcc, 0x48, 0xf2, 0x9d, 0x08, 0x12, 0x75, 0x46, 0x84, 0xb7,
+	0x6f, 0x44, 0x90, 0x14, 0x1b, 0x67, 0xfc, 0xe2, 0xff, 0xfc, 0x13, 0xd8, 0x1d, 0xbb, 0x8b, 0x4a,
+	0x6e, 0xc0, 0x6c, 0x98, 0xfb, 0xd3, 0x66, 0x6d, 0x6f, 0xfa, 0x60, 0xc6, 0xa7, 0x15, 0x5f, 0x87,
+	0x7b, 0xcf, 0xa3, 0x34, 0x3b, 0x1e, 0x26, 0x89, 0xe8, 0x87, 0x37, 0x54, 0x85, 0x1f, 0xc3, 0x9a,
+	0x6d, 0xa6, 0x34, 0x8f, 0x61, 0x3e, 0x24, 0x5b, 0x91, 0x68, 0xf1, 0xa8, 0xde, 0x92, 0x24, 0xd7,
+	0xa1, 0x3a, 0x80, 0x3f, 0x04, 0xcc, 0x61, 0xd9, 0xa9, 0x71, 0x05, 0xa6, 0xf4, 0xf3, 0x4c, 0x45,
+	0x1d, 0xbe, 0x03, 0x2c, 0x2f, 0xe5, 0xe7, 0x17, 0xf5, 0xe2, 0xf2, 0xe4, 0xc7, 0xf0, 0x3a, 0xe8,
+	0x5f, 0xa9, 0x27, 0xe5, 0xaf, 0x60, 0xbb, 0xd2, 0x4b, 0x78, 0x3e, 0x87, 0x46, 0x92, 0xbb, 0xce,
+	0xe3, 0xcb, 0x73, 0x41, 0x4e, 0x02, 0xb6, 0x4e, 0xc0, 0xf2, 0xad, 0xc6, 0xce, 0x7a, 0x62, 0xa7,
+	0xe2, 0x87, 0xd0, 0xcc, 0x5f, 0xce, 0x8e, 0x1a, 0x83, 0x75, 0x43, 0x5e, 0xcb, 0xf3, 0x38, 0x94,
+	0xcd, 0xab, 0x50, 0x7e, 0x09, 0xeb, 0x8e, 0x9d, 0xf0, 0x7d, 0x00, 0x0b, 0x5d, 0x65, 0x74, 0x2e,
+	0x4c, 0x05, 0xfb, 0x65, 0x04, 0xdd, 0x98, 0xf6, 0x8c, 0x41, 0x41, 0x6f, 0x46, 0x4d, 0xa4, 0x41,
+	0x3c, 0x93, 0xe0, 0x4a, 0x33, 0x61, 0x38, 0xcc, 0xbb, 0x42, 0xda, 0x08, 0xc2, 0x0a, 0x41, 0x50,
+	0x6d, 0xa8, 0xfd, 0x7c, 0x1f, 0x1a, 0x6d, 0x91, 0x39, 0xb3, 0xc4, 0xad, 0x7f, 0x0f, 0x1a, 0xb2,
+	0x50, 0x14, 0x0a, 0x5d, 0xfd, 0x53, 0x40, 0xd3, 0x48, 0xb5, 0x1f, 0xc2, 0x6c, 0xd1, 0x81, 0xaa,
+	0xf2, 0x92, 0xae, 0x9c, 0xf7, 0x03, 0xf9, 0xf8, 0x03, 0xa8, 0x17, 0x55, 0x8d, 0x56, 0x1e, 0x73,
+	0xf3, 0xa7, 0x71, 0x1a, 0x55, 0xdd, 0xbc, 0x61, 0x2f, 0x6f, 0x7e, 0xa0, 0x8c, 0xce, 0xcd, 0xab,
+	0x60, 0xbf, 0x8c, 0xa0, 0x9b, 0xd7, 0x9e, 0xdb, 0x51, 0x9c, 0xf4, 0x06, 0xdd, 0xf8, 0x46, 0x08,
+	0x17, 0x85, 0x61, 0x2f, 0x51, 0x08, 0x65, 0x74, 0x50, 0xa8, 0x60, 0xbf, 0x8c, 0x20, 0x14, 0xda,
+	0x33, 0x06, 0xc5, 0x9a, 0xbc, 0xea, 0x6f, 0x44, 0x76, 0x1d, 0x77, 0x34, 0x86, 0xcf, 0x24, 0x2b,
+	0xb4, 0x95, 0x10, 0x3c, 0x82, 0xb9, 0x9e, 0x34, 0x51, 0xfd, 0x65, 0xaa, 0x2f, 0x03, 0x7d, 0xe5,
+	0xe5, 0x1c, 0x56, 0xdb, 0x82, 0xb6, 0x4f, 0x60, 0x9e, 0x2f, 0x42, 0x11, 0x0d, 0x46, 0x98, 0x57,
+	0x9a, 0x4b, 0xe6, 0x25, 0x64, 0x73, 0x98, 0x47, 0xa1, 0xbe, 0xf6, 0x13, 0xf3, 0x94, 0x7d, 0x02,
+	0x0b, 0xd4, 0x90, 0x73, 0x59, 0x50, 0xda, 0x0d, 0x16, 0x28, 0xa3, 0xcb, 0x02, 0xb2, 0xfb, 0x65,
+	0x84, 0x62, 0x81, 0xf2, 0x54, 0xa3, 0x38, 0xfa, 0xbb, 0x01, 0x6b, 0x67, 0x59, 0x9c, 0x04, 0xf9,
+	0xa0, 0xc8, 0x7f, 0x12, 0x9c, 0x89, 0xe4, 0x75, 0x14, 0x0a, 0xfc, 0x1e, 0x96, 0xcc, 0xa9, 0x89,
+	0xdb, 0x2d, 0xfa, 0x01, 0x51, 0x31, 0x62, 0xd9, 0x4e, 0xb5, 0x53, 0x02, 0xe7, 0x8d, 0x5f, 0xff,
+	0xf9, 0xf7, 0x8f, 0xa9, 0x45, 0x5c, 0xf0, 0xd4, 0x38, 0x45, 0x1f, 0x16, 0x8d, 0x71, 0x8a, 0x4c,
+	0xed, 0x1f, 0x9d, 0xb1, 0xcc, 0x1d, 0xca, 0x7c, 0xa3, 0x48, 0xb7, 0x8a, 0x2b, 0x3a, 0x9d, 0xf7,
+	0x73, 0xd4, 0xf9, 0x05, 0x7f, 0xa2, 0x07, 0xb5, 0x67, 0x22, 0x72, 0x13, 0x5b, 0xf5, 0x64, 0x66,
+	0xfb, 0xb7, 0xc6, 0xd0, 0x31, 0x58, 0x51, 0x77, 0x0d, 0xd1, 0x1b, 0x19, 0xd3, 0xd8, 0x93, 0x2f,
+	0x6e, 0x0d, 0x5e, 0xdc, 0x33, 0x4e, 0x55, 0x39, 0x93, 0x59, 0xf5, 0x5c, 0xe7, 0xbb, 0x45, 0xa5,
+	0x2d, 0xdc, 0x1c, 0xad, 0x24, 0x8f, 0xfa, 0x0a, 0x96, 0xad, 0x19, 0x8d, 0xd6, 0x03, 0xb8, 0x23,
+	0x9d, 0xdd, 0x1f, 0xe3, 0xa5, 0x83, 0x61, 0x51, 0x6e, 0x09, 0xc1, 0xd3, 0xd3, 0x1b, 0xcf, 0x8a,
+	0x07, 0x52, 0xb1, 0xd6, 0x03, 0x39, 0x23, 0x9d, 0xb9, 0x22, 0xc0, 0x37, 0x8b, 0x7c, 0x0d, 0xac,
+	0x97, 0xf9, 0x24, 0x6c, 0xe2, 0x94, 0x9a, 0xea, 0x36, 0xa7, 0x1c, 0x09, 0xb0, 0x39, 0xe5, 0x0a,
+	0x81, 0xc1, 0x29, 0x35, 0xef, 0xf1, 0x05, 0x40, 0x39, 0xef, 0x71, 0xcb, 0x40, 0x6c, 0x6b, 0x00,
+	0x73, 0x24, 0xc3, 0x20, 0x94, 0xca, 0x25, 0xe1, 0xbe, 0x04, 0x28, 0x65, 0xa0, 0x4c, 0x38, 0xa2,
+	0x17, 0x8c, 0x55, 0xb9, 0x08, 0x68, 0xbd, 0x48, 0xbe, 0x80, 0x73, 0x9e, 0x14, 0x08, 0x6c, 0xc3,
+	0xbc, 0x12, 0x08, 0xdc, 0xb4, 0x40, 0x96, 0x92, 0xc1, 0x2c, 0x6d, 0xe1, 0x6b, 0x45, 0x8e, 0x15,
+	0x5c, 0xa2, 0x1c, 0x16, 0x09, 0xb4, 0x5c, 0xd8, 0x24, 0x70, 0xd5, 0xc5, 0x26, 0xc1, 0x88, 0xc6,
+	0x18, 0x24, 0xd0, 0x42, 0x42, 0x24, 0x50, 0xb1, 0x16, 0x09, 0x1c, 0x75, 0x61, 0xae, 0x1e, 0x19,
+	0x24, 0xd0, 0xf9, 0x2c, 0xd8, 0x5a, 0x5f, 0x6c, 0xd8, 0xae, 0x1c, 0xd9, 0xb0, 0x47, 0x44, 0xc9,
+	0x80, 0xad, 0x95, 0x87, 0x60, 0xab, 0x58, 0x0b, 0xb6, 0x23, 0x47, 0xcc, 0x15, 0x30, 0x03, 0xb6,
+	0xce, 0x27, 0x61, 0x7f, 0x0b, 0x8b, 0x86, 0x24, 0xa1, 0xf5, 0xe4, 0xb6, 0x7a, 0xb1, 0xed, 0x4a,
+	0x1f, 0x01, 0x5e, 0x2d, 0x0a, 0x00, 0xce, 0x7b, 0x24, 0x56, 0xf8, 0x35, 0x2c, 0x68, 0xb1, 0xc2,
+	0xa6, 0x01, 0xd6, 0xd2, 0x2f, 0x66, 0x6b, 0x1d, 0x5f, 0x2f, 0xf2, 0xd4, 0x71, 0x59, 0xe5, 0xb1,
+	0x5a, 0x4c, 0xc9, 0x97, 0xdd, 0x62, 0x8e, 0xd6, 0xd9, 0x2d, 0xe6, 0x2a, 0x9e, 0xd1, 0x62, 0x4a,
+	0xd8, 0xa8, 0xc5, 0x28, 0xd2, 0x6a, 0x31, 0x5b, 0xec, 0x98, 0xa3, 0x8d, 0x46, 0x8b, 0xa9, 0x5c,
+	0x36, 0x87, 0x95, 0x6a, 0x39, 0x1c, 0x76, 0xb4, 0xd1, 0xe1, 0xb0, 0xab, 0x90, 0x26, 0x87, 0x75,
+	0x42, 0xe2, 0x30, 0xad, 0x6d, 0x0e, 0xdb, 0xda, 0xc8, 0x5c, 0x35, 0x35, 0x39, 0xac, 0xf2, 0x49,
+	0xd8, 0x5d, 0xd8, 0x1c, 0xf3, 0x91, 0x82, 0xef, 0x9a, 0x52, 0x36, 0xfe, 0xdb, 0x87, 0x3d, 0x9a,
+	0x18, 0x47, 0x87, 0x7a, 0x0b, 0x7f, 0xab, 0xc1, 0x83, 0x89, 0x1f, 0x64, 0xf8, 0xc4, 0x7a, 0x8d,
+	0x3b, 0x7c, 0x62, 0xb2, 0x0f, 0xdf, 0x60, 0x87, 0x06, 0xf3, 0x7b, 0x0d, 0xf6, 0xef, 0xf0, 0x39,
+	0x8c, 0x47, 0x77, 0x4b, 0x6e, 0x0d, 0xe6, 0xa7, 0x6f, 0xb4, 0x47, 0x41, 0xba, 0x98, 0x2d, 0x3e,
+	0x64, 0x9f, 0xfe, 0x17, 0x00, 0x00, 0xff, 0xff, 0x74, 0xb8, 0xa1, 0xdc, 0xf0, 0x10, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1248,6 +1549,9 @@ type StorageReaderServiceClient interface {
 	GetReceipt(ctx context.Context, in *GetReceiptRequest, opts ...grpc.CallOption) (*model.Receipt, error)
 	ListPurchases(ctx context.Context, in *ListPurchasesRequest, opts ...grpc.CallOption) (*ListPurchasesResponse, error)
 	GetPurchase(ctx context.Context, in *GetPurchaseRequest, opts ...grpc.CallOption) (*model.Purchase, error)
+	GetCountPurchasesByYear(ctx context.Context, in *GetCountPurchasesByYearRequest, opts ...grpc.CallOption) (*GetCountPurchasesByYearResponse, error)
+	GetRevenuePurchasesByDatesByPrice(ctx context.Context, in *GetRevenuePurchasesByDatesByPriceRequest, opts ...grpc.CallOption) (*GetRevenuePurchasesByDatesByPriceResponse, error)
+	GetRevenuePurchasesByDatesByProduct(ctx context.Context, in *GetRevenuePurchasesByDatesByProductRequest, opts ...grpc.CallOption) (*GetRevenuePurchasesByDatesByProductResponse, error)
 }
 
 type storageReaderServiceClient struct {
@@ -1438,6 +1742,33 @@ func (c *storageReaderServiceClient) GetPurchase(ctx context.Context, in *GetPur
 	return out, nil
 }
 
+func (c *storageReaderServiceClient) GetCountPurchasesByYear(ctx context.Context, in *GetCountPurchasesByYearRequest, opts ...grpc.CallOption) (*GetCountPurchasesByYearResponse, error) {
+	out := new(GetCountPurchasesByYearResponse)
+	err := c.cc.Invoke(ctx, "/reader.StorageReaderService/GetCountPurchasesByYear", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageReaderServiceClient) GetRevenuePurchasesByDatesByPrice(ctx context.Context, in *GetRevenuePurchasesByDatesByPriceRequest, opts ...grpc.CallOption) (*GetRevenuePurchasesByDatesByPriceResponse, error) {
+	out := new(GetRevenuePurchasesByDatesByPriceResponse)
+	err := c.cc.Invoke(ctx, "/reader.StorageReaderService/GetRevenuePurchasesByDatesByPrice", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageReaderServiceClient) GetRevenuePurchasesByDatesByProduct(ctx context.Context, in *GetRevenuePurchasesByDatesByProductRequest, opts ...grpc.CallOption) (*GetRevenuePurchasesByDatesByProductResponse, error) {
+	out := new(GetRevenuePurchasesByDatesByProductResponse)
+	err := c.cc.Invoke(ctx, "/reader.StorageReaderService/GetRevenuePurchasesByDatesByProduct", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StorageReaderServiceServer is the server API for StorageReaderService service.
 type StorageReaderServiceServer interface {
 	ListCurrency(context.Context, *ListCurrencyRequest) (*ListCurrencyResponse, error)
@@ -1460,6 +1791,9 @@ type StorageReaderServiceServer interface {
 	GetReceipt(context.Context, *GetReceiptRequest) (*model.Receipt, error)
 	ListPurchases(context.Context, *ListPurchasesRequest) (*ListPurchasesResponse, error)
 	GetPurchase(context.Context, *GetPurchaseRequest) (*model.Purchase, error)
+	GetCountPurchasesByYear(context.Context, *GetCountPurchasesByYearRequest) (*GetCountPurchasesByYearResponse, error)
+	GetRevenuePurchasesByDatesByPrice(context.Context, *GetRevenuePurchasesByDatesByPriceRequest) (*GetRevenuePurchasesByDatesByPriceResponse, error)
+	GetRevenuePurchasesByDatesByProduct(context.Context, *GetRevenuePurchasesByDatesByProductRequest) (*GetRevenuePurchasesByDatesByProductResponse, error)
 }
 
 // UnimplementedStorageReaderServiceServer can be embedded to have forward compatible implementations.
@@ -1525,6 +1859,15 @@ func (*UnimplementedStorageReaderServiceServer) ListPurchases(ctx context.Contex
 }
 func (*UnimplementedStorageReaderServiceServer) GetPurchase(ctx context.Context, req *GetPurchaseRequest) (*model.Purchase, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPurchase not implemented")
+}
+func (*UnimplementedStorageReaderServiceServer) GetCountPurchasesByYear(ctx context.Context, req *GetCountPurchasesByYearRequest) (*GetCountPurchasesByYearResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCountPurchasesByYear not implemented")
+}
+func (*UnimplementedStorageReaderServiceServer) GetRevenuePurchasesByDatesByPrice(ctx context.Context, req *GetRevenuePurchasesByDatesByPriceRequest) (*GetRevenuePurchasesByDatesByPriceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRevenuePurchasesByDatesByPrice not implemented")
+}
+func (*UnimplementedStorageReaderServiceServer) GetRevenuePurchasesByDatesByProduct(ctx context.Context, req *GetRevenuePurchasesByDatesByProductRequest) (*GetRevenuePurchasesByDatesByProductResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRevenuePurchasesByDatesByProduct not implemented")
 }
 
 func RegisterStorageReaderServiceServer(s *grpc.Server, srv StorageReaderServiceServer) {
@@ -1891,6 +2234,60 @@ func _StorageReaderService_GetPurchase_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _StorageReaderService_GetCountPurchasesByYear_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCountPurchasesByYearRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageReaderServiceServer).GetCountPurchasesByYear(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/reader.StorageReaderService/GetCountPurchasesByYear",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageReaderServiceServer).GetCountPurchasesByYear(ctx, req.(*GetCountPurchasesByYearRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _StorageReaderService_GetRevenuePurchasesByDatesByPrice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRevenuePurchasesByDatesByPriceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageReaderServiceServer).GetRevenuePurchasesByDatesByPrice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/reader.StorageReaderService/GetRevenuePurchasesByDatesByPrice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageReaderServiceServer).GetRevenuePurchasesByDatesByPrice(ctx, req.(*GetRevenuePurchasesByDatesByPriceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _StorageReaderService_GetRevenuePurchasesByDatesByProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRevenuePurchasesByDatesByProductRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageReaderServiceServer).GetRevenuePurchasesByDatesByProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/reader.StorageReaderService/GetRevenuePurchasesByDatesByProduct",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageReaderServiceServer).GetRevenuePurchasesByDatesByProduct(ctx, req.(*GetRevenuePurchasesByDatesByProductRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _StorageReaderService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "reader.StorageReaderService",
 	HandlerType: (*StorageReaderServiceServer)(nil),
@@ -1974,6 +2371,18 @@ var _StorageReaderService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPurchase",
 			Handler:    _StorageReaderService_GetPurchase_Handler,
+		},
+		{
+			MethodName: "GetCountPurchasesByYear",
+			Handler:    _StorageReaderService_GetCountPurchasesByYear_Handler,
+		},
+		{
+			MethodName: "GetRevenuePurchasesByDatesByPrice",
+			Handler:    _StorageReaderService_GetRevenuePurchasesByDatesByPrice_Handler,
+		},
+		{
+			MethodName: "GetRevenuePurchasesByDatesByProduct",
+			Handler:    _StorageReaderService_GetRevenuePurchasesByDatesByProduct_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

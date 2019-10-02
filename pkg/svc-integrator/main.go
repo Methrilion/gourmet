@@ -15,7 +15,7 @@ import (
 )
 
 var (
-	storageWriterEndpoint = flag.String("svc-storage-writer_endpoint", "svc-storage-writer:9091", "endpoint of Storage Writer Service")
+	storageWriterEndpoint = flag.String("svc-storage-writer endpoint", os.Getenv("STORAGE_WRITER_SERVICE_FULLADDRESS"), "endpoint of Storage Writer Service")
 )
 
 func run() error {

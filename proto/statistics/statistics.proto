@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package statistics;
+
+service StatisticsService {
+    
+    rpc GetPricesStatisticsByYear (GetPricesStatisticsByYearRequest) returns (GetPricesStatisticsByYearResponse) {
+
+    }
+    rpc GetProductsStatisticsByYear (GetProductsStatisticsByYearRequest) returns (GetProductsStatisticsByYearResponse) {
+
+    }
+}
+
+
+message PricesStat {
+    uint32 id = 1;
+	repeated float revenues = 2;
+    float sum = 3;
+}
+message GetPricesStatisticsByYearRequest {
+    int32 year = 1;
+}
+message GetPricesStatisticsByYearResponse {
+    repeated PricesStat prices_stat = 1;
+    repeated float results = 2;
+}
+
+message ProductsStat {
+    uint32 id = 1;
+	repeated float revenues = 2;
+    float sum = 3;
+}
+message GetProductsStatisticsByYearRequest {
+    int32 year = 1;
+}
+
+message GetProductsStatisticsByYearResponse {
+    repeated ProductsStat products_stat = 1;
+    repeated float results = 2;
+}

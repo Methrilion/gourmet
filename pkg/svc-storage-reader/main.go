@@ -2,10 +2,13 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
 	"os"
+	"time"
 
+	"github.com/golang/protobuf/ptypes"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/methrilion/gourmet/pkg/util/connect"
@@ -46,6 +49,121 @@ func main() {
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v\n", err)
 	}
+}
+
+func getMonths(year int) ([12]time.Time, [12]time.Time) {
+	var starts [12]time.Time
+	var ends [12]time.Time
+
+	for i := 0; i < 12; i++ {
+		starts[i] = time.Date(year, time.Month(i+1), 1, 0, 0, 0, 0, time.UTC)
+		ends[i] = time.Date(year, time.Month(i+2), 1, 0, 0, 0, -1, time.UTC)
+	}
+	return starts, ends
+}
+
+func (s *storageReaderService) GetCountPurchasesByYear(ctx context.Context, in *pb.GetCountPurchasesByYearRequest) (*pb.GetCountPurchasesByYearResponse, error) {
+
+	year := int(in.GetYear())
+
+	type ResultQuery struct {
+		Datetime time.Time
+		Id       uint32
+	}
+	var resq []ResultQuery
+
+	err := storageReader.gormDB.Table("purchases").
+		Select("purchases.id, datetime").
+		Joins("JOIN receipts ON purchases.receipt_id = receipts.id").
+		Where("datetime BETWEEN ? AND ?",
+			time.Date(year, 1, 1, 0, 0, 0, 0, time.UTC),
+			time.Date(year+1, 1, 1, 0, 0, 0, -1, time.UTC)).
+		Scan(&resq).Error
+	if err != nil {
+		return nil, err
+	}
+
+	startMonths, endMonths := getMonths(year)
+	var counts [12]int32
+
+	for _, a := range resq {
+		for i := 0; i < 12; i++ {
+			if a.Datetime.After(startMonths[i]) && a.Datetime.Before(endMonths[i]) {
+				counts[i]++
+			}
+		}
+	}
+
+	return &pb.GetCountPurchasesByYearResponse{
+		Counts: counts[:],
+	}, nil
+}
+
+func (s *storageReaderService) GetRevenuePurchasesByDatesByPrice(ctx context.Context, in *pb.GetRevenuePurchasesByDatesByPriceRequest) (*pb.GetRevenuePurchasesByDatesByPriceResponse, error) {
+
+	start, err := ptypes.Timestamp(in.GetStart())
+	if err != nil {
+		return nil, err
+	}
+
+	end, err := ptypes.Timestamp(in.GetEnd())
+	if err != nil {
+		return nil, err
+	}
+
+	type Result struct {
+		Total float32
+	}
+	var revenue Result
+
+	err = storageReader.gormDB.
+		Raw("SELECT SUM(result) AS total "+
+			"FROM purchases, receipts "+
+			"WHERE purchases.price_id = ? "+
+			"AND purchases.receipt_id = receipts.id "+
+			"AND receipts.datetime BETWEEN ? AND ?",
+			in.GetPriceId(), start, end).
+		Scan(&revenue).Error
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println(revenue)
+
+	return &pb.GetRevenuePurchasesByDatesByPriceResponse{
+		Revenue: revenue.Total,
+	}, nil
+}
+
+func (s *storageReaderService) GetRevenuePurchasesByDatesByProduct(ctx context.Context, in *pb.GetRevenuePurchasesByDatesByProductRequest) (*pb.GetRevenuePurchasesByDatesByProductResponse, error) {
+
+	start, err := ptypes.Timestamp(in.GetStart())
+	if err != nil {
+		return nil, err
+	}
+
+	end, err := ptypes.Timestamp(in.GetEnd())
+	if err != nil {
+		return nil, err
+	}
+
+	type Result struct {
+		Total float32
+	}
+	var revenue Result
+
+	err = storageReader.gormDB.Table("purchases").
+		Select("sum(result) as total").
+		Joins("JOIN receipts ON purchases.receipt_id = receipts.id AND datetime BETWEEN ? AND ?", start, end).
+		Joins("JOIN prices ON purchases.receipt_id = prices.id AND product_id = ?", in.GetProductId()).
+		Scan(&revenue).Error
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println(revenue)
+
+	return &pb.GetRevenuePurchasesByDatesByProductResponse{
+		Revenue: revenue.Total,
+	}, nil
 }
 
 func (s *storageReaderService) ListCurrency(ctx context.Context, in *pb.ListCurrencyRequest) (*pb.ListCurrencyResponse, error) {

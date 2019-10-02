@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package analytics;
+
+service AnalyticsService {
+    
+    rpc GetABCByPrices (GetABCByPricesRequest) returns (GetABCByPricesResponse) {
+
+    }
+}
+
+
+message PriceABC {
+    uint32 id = 1;
+    string ABC = 2;
+}
+message GetABCByPricesRequest {
+    int32 year = 1;
+}
+message GetABCByPricesResponse {
+    repeated PriceABC priceABC = 1;
+}

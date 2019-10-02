@@ -31,8 +31,7 @@ services:
   svc-integrator:
     image: svc-integrator:latest
     environment:
-    - STORAGE_WRITER_SERVICE_NAME=:svc-storage-writer
-    - STORAGE_WRITER_SERVICE_ADDRESS=:9091
+    - STORAGE_WRITER_SERVICE_FULLADDRESS=svc-storage-writer:9091
     - INTEGRATOR_SERVICE_ADDRESS=:9092
     ports:
     - 9092:9092
@@ -53,3 +52,31 @@ services:
       gourmet-db:
         condition: service_healthy
     container_name: svc-storage-reader
+
+  svc-statistics:
+    image: svc-statistics:latest
+    environment:
+    - STORAGE_READER_SERVICE_FULLADDRESS=svc-storage-reader:9093
+    - STATISTICS_SERVICE_ADDRESS=:9094
+    env_file:
+    - ./config/docker/gourmet-db.env
+    ports:
+    - 9094:9094
+    depends_on:
+      gourmet-db:
+        condition: service_healthy
+    container_name: svc-statistics
+
+  svc-analytics:
+    image: svc-analytics:latest
+    environment:
+    - STATISTICS_SERVICE_FULLADDRESS=svc-statistics:9094
+    - ANALYTICS_SERVICE_ADDRESS=:9095
+    env_file:
+    - ./config/docker/gourmet-db.env
+    ports:
+    - 9095:9095
+    depends_on:
+      gourmet-db:
+        condition: service_healthy
+    container_name: svc-analytics
